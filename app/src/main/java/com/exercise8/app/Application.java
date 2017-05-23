@@ -1,11 +1,11 @@
-package com.exercise7.app;
-import com.exercise7.util.InputUtil;
-import com.exercise7.core.service.EmployeeService;
-import com.exercise7.core.service.RoleService;
-import com.exercise7.core.service.ContactInfoService;
-import com.exercise7.core.service.EmployeeRoleService;
-import com.exercise7.core.model.Roles;
-import com.exercise7.util.HibernateUtil;
+package com.exercise8.app;
+import com.exercise8.util.InputUtil;
+import com.exercise8.core.service.EmployeeService;
+import com.exercise8.core.service.RoleService;
+import com.exercise8.core.service.ContactInfoService;
+import com.exercise8.core.service.EmployeeRoleService;
+import com.exercise8.core.model.Roles;
+import com.exercise8.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 public class Application {

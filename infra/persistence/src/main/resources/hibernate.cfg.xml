@@ -41,10 +41,10 @@
 			true
 		</property>
 		
-		<mapping class="com.exercise7.core.model.Employee"/>
-		<mapping class="com.exercise7.core.model.Address"/>
-		<mapping class="com.exercise7.core.model.Roles"/>
-		<mapping class="com.exercise7.core.model.ContactInfo"/>
-		<mapping class="com.exercise7.core.model.Name"/>
+		<mapping class="com.exercise8.core.model.Employee"/>
+		<mapping class="com.exercise8.core.model.Address"/>
+		<mapping class="com.exercise8.core.model.Roles"/>
+		<mapping class="com.exercise8.core.model.ContactInfo"/>
+		<mapping class="com.exercise8.core.model.Name"/>
 	</session-factory>
 </hibernate-configuration>

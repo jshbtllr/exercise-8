@@ -1,8 +1,8 @@
-package com.exercise7.core.service;
-import com.exercise7.core.model.ContactInfo;
-import com.exercise7.core.model.Employee;
-import com.exercise7.util.InputUtil;
-import com.exercise7.core.dao.EmployeeDAO;
+package com.exercise8.core.service;
+import com.exercise8.core.model.ContactInfo;
+import com.exercise8.core.model.Employee;
+import com.exercise8.util.InputUtil;
+import com.exercise8.core.dao.EmployeeDAO;
 import java.util.Set;
 import java.util.Iterator;
 import org.apache.commons.validator.routines.EmailValidator;

@@ -3,23 +3,23 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.exercise7.core</groupId>
+		<groupId>com.exercise8.core</groupId>
 		<artifactId>core</artifactId>
 		<version>1.0.1</version>
 	</parent>
 
-	<groupId>com.exercise7.core.dao</groupId>
+	<groupId>com.exercise8.core.dao</groupId>
 	<artifactId>dao</artifactId>
 	<version>${parent-version}</version>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.exercise7.util</groupId>
+			<groupId>com.exercise8.util</groupId>
 			<artifactId>util</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>com.exercise7.core.model</groupId>
+			<groupId>com.exercise8.core.model</groupId>
 			<artifactId>model</artifactId>
 		</dependency>
 	</dependencies>

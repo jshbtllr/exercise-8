@@ -1,7 +1,7 @@
-package com.exercise7.core.dao;
+package com.exercise8.core.dao;
 
-import com.exercise7.core.model.Roles;
-import com.exercise7.util.HibernateUtil;
+import com.exercise8.core.model.Roles;
+import com.exercise8.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.Query;

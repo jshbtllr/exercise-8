@@ -3,28 +3,28 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.exercise7</groupId>
-		<artifactId>Employee-Annotation</artifactId>
+		<groupId>com.exercise8</groupId>
+		<artifactId>Employee-Servlets</artifactId>
 		<version>1.0.1</version>
 	</parent>
 
-	<groupId>com.exercise7.app</groupId>
+	<groupId>com.exercise8.app</groupId>
 	<artifactId>app</artifactId>
 	<version>${parent-version}</version>
 
 	<dependencies>
 		<dependency>
-			<groupId>com.exercise7.core.service</groupId>
+			<groupId>com.exercise8.core.service</groupId>
 			<artifactId>service</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>com.exercise7.core.model</groupId>
+			<groupId>com.exercise8.core.model</groupId>
 			<artifactId>model</artifactId>
 		</dependency>		
 
 		<dependency>
-			<groupId>com.exercise7.core.dao</groupId>
+			<groupId>com.exercise8.core.dao</groupId>
 			<artifactId>dao</artifactId>
 		</dependency>		
 

@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.exercise7.infra</groupId>
+		<groupId>com.exercise8.infra</groupId>
 		<artifactId>infra</artifactId>
 		<version>1.0.1</version>		
 	</parent>
 
-	<groupId>com.exercise7.infra.persistence</groupId>
+	<groupId>com.exercise8.infra.persistence</groupId>
 	<artifactId>persistence</artifactId>
 	<version>${parent-version}</version>
 

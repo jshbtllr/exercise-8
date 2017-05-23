@@ -1,4 +1,4 @@
-package com.exercise7.util;
+package com.exercise8.util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;

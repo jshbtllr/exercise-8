@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.exercise7</groupId>
-		<artifactId>Employee-Annotation</artifactId>
+		<groupId>com.exercise8</groupId>
+		<artifactId>Employee-Servlets</artifactId>
 		<version>1.0.1</version>
 	</parent>
 
-	<groupId>com.exercise7.util</groupId>
+	<groupId>com.exercise8.util</groupId>
 	<artifactId>util</artifactId>
 	<version>${parent-version}</version>
 
@@ -24,7 +24,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.exercise7.infra.persistence</groupId>
+			<groupId>com.exercise8.infra.persistence</groupId>
 			<artifactId>persistence</artifactId>
 		</dependency>
 	</dependencies>

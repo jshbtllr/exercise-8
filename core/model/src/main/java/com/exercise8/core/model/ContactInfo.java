@@ -1,4 +1,4 @@
-package com.exercise7.core.model;
+package com.exercise8.core.model;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 

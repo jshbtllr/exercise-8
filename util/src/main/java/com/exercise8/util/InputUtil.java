@@ -1,4 +1,4 @@
-package com.exercise7.util;
+package com.exercise8.util;
 import java.util.Scanner;
 import java.util.Date;
 import java.text.SimpleDateFormat;
