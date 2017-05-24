@@ -14,15 +14,9 @@ public class RoleService {
 		}
 	}
 
-	public static void listRoles(Integer sortRule, Integer orderRule) {
+	public static List <Roles> listRoles(Integer sortRule, Integer orderRule) {
 		List <Roles> list = RoleDAO.showRoles(sortRule, orderRule);
-		
-		for (Roles role : list ) {
-			System.out.println("RoleID:    " + role.getId());
-			System.out.println("RoleCode:  " + role.getRoleCode());
-			System.out.println("RoleName:  " + role.getRoleName());
-			System.out.println("--------------------------------");
-		}
+		return list;
 	}	
 
 	public static void updateRoles() {

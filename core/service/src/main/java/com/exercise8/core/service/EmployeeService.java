@@ -113,7 +113,7 @@ public class EmployeeService {
 		EmployeeDAO.add(employee);
 	}
 
-	public static void listEmployees(Integer sortFunction, Integer orderFunction) {
+	public static List <Employee> listEmployees(Integer sortFunction, Integer orderFunction) {
 		List <Employee> list = EmployeeDAO.showEmployees(sortFunction, orderFunction);
 		Set <Roles> roles;
 		Set <ContactInfo> contacts;
@@ -126,61 +126,9 @@ public class EmployeeService {
 					Collections.sort(list, Collections.reverseOrder(new gwaComparator()));						
 				}
 			}
+		}
 
-			System.out.println("-------------------------------------------------------------------\n");
-			for ( Employee employee : list ) {
-				System.out.println("EmployeeID: " + employee.getId());
-				System.out.println("FullName:   " + ((employee.getName().getTitle().equals("") || employee.getName().getTitle().equals(" ")) ? "" : employee.getName().getTitle() + " ") 
-									+ employee.getName().getFirstName() + " " + employee.getName().getMiddleName() + " " + employee.getName().getLastName() + " " + employee.getName().getSuffix());
-				
-				if(sortFunction != 4) {  	/*Sort Type 4 for employeeid and Fullname prints*/
-					System.out.println("Address:    " + employee.getAddress().getStreetNumber() + " " + employee.getAddress().getBarangay() + " " 
-										+ employee.getAddress().getCity() + " " + employee.getAddress().getCountry() + " " + employee.getAddress().getZipcode());
-					System.out.println("Birthday:   " + employee.getBirthday().toString().substring(0,10));
-					System.out.println("GWA:        " + employee.getGradeWeightAverage());
-					if(employee.getEmployed().equals(true)) {
-						System.out.println("Employed:   Yes");
-						System.out.println("Hire Date:  " + employee.getHireDate().toString().substring(0,10));
-					} else {
-						System.out.println("Employed:   No");
-						System.out.println("Hire Date:  " + "N/A");
-					}
-
-					roles = employee.getRole();
-					contacts = employee.getContactInfo();
-
-					System.out.println("--------------------");
-					System.out.println("Current Roles: ");
-					if(roles.size() == 0) {
-						System.out.println("--------------------");
-						System.out.println("There are currently no roles assigned to employee");
-					} else {
-						for(Roles assigned : roles) {
-							System.out.println("--------------------");
-							System.out.println("Role Code: " + assigned.getRoleCode());
-							System.out.println("Role Name: " + assigned.getRoleName());
-						}
-					}
-
-					System.out.println("--------------------");
-					System.out.println("Current Contact Information: ");
-					if(contacts.size() == 0) {
-						System.out.println("--------------------");
-						System.out.println("There are currently no contact info assigned to employee");
-					} else {
-						for(ContactInfo infos : contacts ) {
-							System.out.println("--------------------");
-							System.out.println("Info Type: " + infos.getInfoType());
-							System.out.println("Info Detail: " + infos.getInfoDetail());
-						}
-					}
-
-				}
-				System.out.println("-------------------------------------------------------------------\n");
-			}
-		} else {
-			System.out.println("No employees registered.");
-		}	
+		return list;
 	}	
 
 	public static void deleteEmployee() {

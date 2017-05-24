@@ -11,6 +11,7 @@
 	<groupId>com.exercise8.app</groupId>
 	<artifactId>app</artifactId>
 	<version>${parent-version}</version>
+	<packaging>war</packaging>
 
 	<dependencies>
 		<dependency>
@@ -37,6 +38,11 @@
 		    <groupId>javassist</groupId>
 		    <artifactId>javassist</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -48,8 +54,8 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
 			</plugin>
 
 			<plugin>
