@@ -11,7 +11,13 @@
 </head>
 <body>
     <h3>Employee Management</h3>
-    <h4>Current Employee</h4><br/>
+    <h4>Current Employees</h4><br/>
+    <div>
+    <a href=empregsystem.jsp>Back to Employee <br/> Registration System</a></td>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a align="right" href=addemployee.jsp>Add Role</a>
+    </div>
+    <br/>
+    <br/>    
     <table border='1' align='left'>
         <thead>
             <tr>
@@ -50,8 +56,14 @@
                     }%>
                 </td>
                 <td style="text-align:center">
-                    <a href="employeeroles.jsp">Show Roles</a><br/>
-                    <a href="employeecontacts.jsp">Show Contacts</a><br/>
+                    <form action="showemproles.jsp" method="post">
+                        <input type="hidden" name="employeeId" value="<%=employee.getId()%>"/>
+                        <input type="submit" value="Show Roles"/>
+                    </form>    
+                    <form action="empcontact.jsp" method="post">
+                        <input type="hidden" name="employeeId" value="<%=employee.getId()%>"/>
+                        <input type="submit" value="Show Contact Info"/>
+                    </form>
                     <a href="updateemployee.jsp">Update Employee</a><br/>
                     <form action="DeleteEmployeeServlet" method="post">
                         <input type="hidden" name="employeeId" value="<%=employee.getId()%>"/>
