@@ -29,12 +29,7 @@ public class RoleService {
 		System.out.print("\nInput RoleID of the role to edit: ");
 		Long roleId = InputUtil.inputOptionCheck().longValue();
 		role.setId(roleId);
-
-		while(!(RoleDAO.checkDuplicateRole(role, 4))) {
-			System.out.print("Specified RoleID does not exist. Input another: ");
-			roleId = InputUtil.inputOptionCheck().longValue();
-			role.setId(roleId);
-		}		
+	
 
 		role = new Roles();
 
@@ -84,25 +79,16 @@ public class RoleService {
 		}
 	}		
 
-	public static void removeRoles() {
-		listRoles(1, 1);
-		System.out.print("\nInput RoleID of the role to be deleted: ");
-		Long roleId = InputUtil.inputOptionCheck().longValue();
+	public static Integer removeRoles(Long roleId) {
 		Roles role = new Roles();
 		role.setId(roleId);
-
-		while(!(RoleDAO.checkDuplicateRole(role, 4))) {
-			System.out.print("Specified roleId does not exist. Input another: ");
-			roleId = InputUtil.inputOptionCheck().longValue();
-			role.setId(roleId);
-		}
 
 		if (!(RoleDAO.checkDuplicateRole(role, 3))) {
 			role = RoleDAO.get(Roles.class, roleId);
 			RoleDAO.delete(role);
-			System.out.println("Role deleted");
+			return 1;
 		} else {
-			System.out.println("Specified Role still belongs to an employee");
+			return 0;
 		}
 	}
 }	

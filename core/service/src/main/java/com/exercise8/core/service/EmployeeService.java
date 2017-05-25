@@ -131,18 +131,8 @@ public class EmployeeService {
 		return list;
 	}	
 
-	public static void deleteEmployee() {
+	public static void deleteEmployee(Long employeeId) {
 		Employee employee = new Employee();
-		System.out.println("Delete Employee");
-		listEmployees(4, 1);
-		System.out.print("Enter the Employee ID to be deleted: ");
-		Long employeeId = InputUtil.inputOptionCheck().longValue();
-		
-		while (!(EmployeeDAO.employeeCheck(employeeId))) {
-			System.out.print("Employee ID chosen does not exist. Enter a new employee id to delete: ");
-			employeeId = InputUtil.inputOptionCheck().longValue();
-		}
-
 		employee = EmployeeDAO.get(Employee.class, employeeId);
 
 		EmployeeDAO.delete(employee);

@@ -47,7 +47,11 @@
                                                 } else {
                                                     out.print("N/A");
                                                 }%></td>
-                <td style="text-align:center"><a href="employeeroles.jsp">Show Roles</a><br/><a href="employeecontacts.jsp">Show Contacts</a><br/><a href="updateemployee.jsp">Update Employee</a><br/><a href="deleteemploye.jsp">Delete Employee</a></td>
+                <td style="text-align:center"><a href="employeeroles.jsp">Show Roles</a><br/><a href="employeecontacts.jsp">Show Contacts</a><br/><a href="updateemployee.jsp">Update Employee</a><br/>
+                    <form action="DeleteEmployeeServlet" method="post">
+                        <input type="hidden" name="employeeId" value="<%=employee.getId()%>"/>
+                        <input type="submit" value="Delete"/>
+                    </form>
             </tr>
             <%}%>
         </tbody>

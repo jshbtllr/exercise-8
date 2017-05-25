@@ -26,7 +26,12 @@
                 <td style="text-align:center"><%=list.getId()%></td>
                 <td style="text-align:center"><%=list.getRoleCode()%></td>
                 <td style="text-align:center"><%=list.getRoleName()%></td>
-                <td style="text-align:center"><a href="updaterole.jsp">Update Role</a><br/><a href="deleterole.jsp">Delete Role</a></td>
+                <td style="text-align:center"><a href="updaterole.jsp">Update Role</a><br/>
+                    <form action="DeleteRoleServlet" method="post">
+                        <input type="hidden" name="roleId" value="<%=list.getId()%>"/>
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
             </tr>
             <%}%>
         </tbody>

@@ -5,4 +5,26 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     metadata-complete="false"
     version="3.1">
+
+    <servlet>
+    	<display-name>DeleteEmployeeServlet</display-name>
+    	<servlet-name>DeleteEmployeeServlet</servlet-name>
+    	<servlet-class>com.exercise8.app.DeleteEmployeeServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+    	<display-name>DeleteRoleServlet</display-name>
+    	<servlet-name>DeleteRoleServlet</servlet-name>
+    	<servlet-class>com.exercise8.app.DeleteRoleServlet</servlet-class>
+    </servlet>    
+
+    <servlet-mapping>
+    	<servlet-name>DeleteEmployeeServlet</servlet-name>
+    	<url-pattern>/DeleteEmployeeServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+    	<servlet-name>DeleteRoleServlet</servlet-name>
+    	<url-pattern>/DeleteRoleServlet</url-pattern>
+    </servlet-mapping>    
 </web-app>
