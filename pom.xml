@@ -132,18 +132,10 @@
 			</dependency>
 
 			<dependency>
-<<<<<<< HEAD
 				<groupId>javax.servlet</groupId>
 				<artifactId>javax.servlet-api</artifactId>
 				<version>${servlet-version}</version>
 			</dependency>
-=======
-			    <groupId>javax.servlet</groupId>
-			    <artifactId>javax.servlet-api</artifactId>
-			    <version>${servlets-version}</version>
-			</dependency>
-
->>>>>>> Added a sample servlet
 		</dependencies>
 	</dependencyManagement>
 

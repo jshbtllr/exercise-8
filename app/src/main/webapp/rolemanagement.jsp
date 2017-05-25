@@ -26,7 +26,7 @@
                 <td style="text-align:center"><%=list.getId()%></td>
                 <td style="text-align:center"><%=list.getRoleCode()%></td>
                 <td style="text-align:center"><%=list.getRoleName()%></td>
-                <td style="text-align:center"><a href="deleterole.jsp">delete</a><br/><a href="updaterole.jsp">update</a></td>
+                <td style="text-align:center"><a href="updaterole.jsp">Update Role</a><br/><a href="deleterole.jsp">Delete Role</a></td>
             </tr>
             <%}%>
         </tbody>
