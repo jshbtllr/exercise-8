@@ -69,9 +69,9 @@ public class RoleDAO extends GenericDAO {
 				query = session.createQuery("SELECT id FROM Roles WHERE roleCode = :rolecode");		
 				query.setParameter("rolecode", role.getRoleCode());
 			} else if (option == 2) {								/*Check Duplicate given rolecode and rolename*/
-				query = session.createQuery("SELECT id FROM Roles WHERE roleCode = :rolecode AND roleName = :rolename");
+				query = session.createQuery("SELECT id FROM Roles WHERE roleCode = :rolecode AND id != :roleid");
 				query.setParameter("rolecode", role.getRoleCode());
-				query.setParameter("rolename", role.getRoleName());
+				query.setParameter("roleid", role.getId());
 			} else if (option == 3) {								/*Check Duplicate assigned to employee given roleid*/
 				query = session.createQuery("SELECT a.id from Employee a join a.role as b WHERE b.id = :paramId");			
 				query.setParameter("paramId", role.getId());

@@ -18,6 +18,18 @@
     	<servlet-class>com.exercise8.app.DeleteRoleServlet</servlet-class>
     </servlet>    
 
+    <servlet>
+    	<display-name>UpdateRoleServlet</display-name>
+    	<servlet-name>UpdateRoleServlet</servlet-name>
+    	<servlet-class>com.exercise8.app.UpdateRoleServlet</servlet-class>
+    </servlet>        
+
+    <servlet>
+    	<display-name>AddRoleServlet</display-name>
+    	<servlet-name>AddRoleServlet</servlet-name>
+    	<servlet-class>com.exercise8.app.AddRoleServlet</servlet-class>
+    </servlet>        
+
     <servlet-mapping>
     	<servlet-name>DeleteEmployeeServlet</servlet-name>
     	<url-pattern>/DeleteEmployeeServlet</url-pattern>
@@ -27,4 +39,14 @@
     	<servlet-name>DeleteRoleServlet</servlet-name>
     	<url-pattern>/DeleteRoleServlet</url-pattern>
     </servlet-mapping>    
+
+    <servlet-mapping>
+    	<servlet-name>UpdateRoleServlet</servlet-name>
+    	<url-pattern>/UpdateRoleServlet</url-pattern>
+    </servlet-mapping>       
+
+    <servlet-mapping>
+    	<servlet-name>AddRoleServlet</servlet-name>
+    	<url-pattern>/AddRoleServlet</url-pattern>
+    </servlet-mapping>        
 </web-app>

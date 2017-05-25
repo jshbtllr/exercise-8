@@ -42,19 +42,26 @@
                 <td style="text-align:center"><%=employee.getBirthday().toString().substring(0,10)%></td>
                 <td style="text-align:center"><%=employee.getGradeWeightAverage()%></td>
                 <td style="text-align:center"><%=employed%></td>
-                <td style="text-align:center"><% if(employed.equals("Yes")) {
-                                                    out.print(employee.getHireDate().toString().substring(0,10));
-                                                } else {
-                                                    out.print("N/A");
-                                                }%></td>
-                <td style="text-align:center"><a href="employeeroles.jsp">Show Roles</a><br/><a href="employeecontacts.jsp">Show Contacts</a><br/><a href="updateemployee.jsp">Update Employee</a><br/>
+                <td style="text-align:center">
+                    <% if(employed.equals("Yes")) {
+                        out.print(employee.getHireDate().toString().substring(0,10));
+                    } else {
+                        out.print("N/A");
+                    }%>
+                </td>
+                <td style="text-align:center">
+                    <a href="employeeroles.jsp">Show Roles</a><br/>
+                    <a href="employeecontacts.jsp">Show Contacts</a><br/>
+                    <a href="updateemployee.jsp">Update Employee</a><br/>
                     <form action="DeleteEmployeeServlet" method="post">
                         <input type="hidden" name="employeeId" value="<%=employee.getId()%>"/>
                         <input type="submit" value="Delete"/>
                     </form>
+                </td>
             </tr>
             <%}%>
         </tbody>
     </table>
+    <a href=empregsystem.jsp>Back to Employee Registration System</a>
 </body>
 </html>
