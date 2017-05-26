@@ -19,98 +19,9 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class EmployeeService {
-	public static void createEmployee() {
-		String lastName;
-		String firstName;
-		String middleName;
-		String suffix;
-		String title;
-		String streetNumber;
-		String barangay;
-		String city;
-		String zipcode;
-		String country;
-		Date birthdate;
-		Date hireDate = null;
-		Float gradeWeightAverage;
-		Boolean employed;
-		Set <ContactInfo> contacts = new HashSet <ContactInfo>();
-		Set <Roles> role = new HashSet <Roles>();
-		Roles input = null;
-		Long roleId = null;
-		Integer option = null;
-
-		System.out.println("Creating a new Employee in database");
-		System.out.print("Employee's Full Name Details:\nLast Name: ");
-		lastName = InputUtil.getRequiredInput();
-		System.out.print("First Name: ");
-		firstName = InputUtil.getRequiredInput();
-		System.out.print("Middle Name: ");
-		middleName = InputUtil.getRequiredInput();
-		System.out.print("Suffix: (optional) ");
-		suffix = InputUtil.getOptionalInput();
-		System.out.print("Title: (optional) ");
-		title = InputUtil.getOptionalInput();
-		System.out.print("Employee's Address:\nStreet Number: ");
-		streetNumber = InputUtil.getRequiredInput();
-		System.out.print("Barangay: ");
-		barangay = InputUtil.getRequiredInput();
-		System.out.print("City: ");
-		city = InputUtil.getRequiredInput();
-		System.out.print("Zipcode: ");
-		zipcode = InputUtil.getRequiredInput();
-		System.out.print("Country: ");
-		country = InputUtil.getRequiredInput();		
-		System.out.print("Employee's Birthdate (dd/mm/yyyy): ");
-		birthdate = InputUtil.getDate();
-		System.out.print("Employee's Grade Weighted Average: ");
-		gradeWeightAverage =  InputUtil.getGrade();
-		System.out.print("Employee Details: Y if employed, N if not: ");
-		employed = InputUtil.getStatus();
-
-		if (employed == true) {
-			System.out.print("Enter Employee Hire Date in format dd/mm/yyyy: ");
-			hireDate = InputUtil.getDate();
-		} else {
-			try {
-				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-				hireDate = format.parse("12/31/9999");
-			} catch(ParseException pe) {
-				pe.printStackTrace();
-			}
-		}
-
-		Address address = new Address(streetNumber, barangay, city, country, zipcode);
-		Name name = new Name(firstName, lastName, middleName, suffix, title);
-		Employee employee = new Employee(name, address, birthdate, gradeWeightAverage, hireDate, employed, contacts, role);
-
-		do{
-			System.out.println("Employee Role Management");
-			System.out.println("[1]    Add Roles");
-			System.out.println("[2]    Exit");
-			System.out.print("Choose an option: ");
-			option = InputUtil.inputOptionCheck(2);
-			if(option == 1) {
-				//role = EmployeeRoleService.addRoleSet(role);
-			}
-		} while(option == 1);
-
-		option = 0;
-
-		do{
-			System.out.println("Employee Contact Info Management");
-			System.out.println("[1]    Add contacts");
-			System.out.println("[2]    Exit");
-			System.out.print("Input option: ");
-			option = InputUtil.inputOptionCheck(2);		
-			
-			if(option!= 2){
-//				contacts = ContactInfoService.addContactSet(contacts, employee);
-				employee.setContactInfo(contacts);
-			}
-		} while(option!= 2);
-
+	public static Integer createEmployee(Employee employee) {
 		EmployeeDAO.add(employee);
+		return 1;
 	}
 
 	public static List <Employee> listEmployees(Integer sortFunction, Integer orderFunction) {
@@ -202,7 +113,7 @@ public class EmployeeService {
 			employee.setAddress(new Address(streetNumber, barangay, city, country, zipcode));
 		} else if (option == 3) {
 			System.out.print("Input New Birthdate (dd/mm/yyyy): ");
-			employee.setBirthday(InputUtil.getDate());
+		//	employee.setBirthday(InputUtil.getDate());
 		} else if (option == 4) {
 			System.out.print("Input new GWA: ");
 			employee.setGradeWeightAverage(InputUtil.getGrade());
@@ -213,7 +124,7 @@ public class EmployeeService {
 			hireDate = null;
 			if (employed == true) {
 				System.out.print("Enter Employee Hire Date in format dd/mm/yyyy: ");
-				employee.setHireDate(InputUtil.getDate());
+				//employee.setHireDate(InputUtil.getDate());
 			} else {
 				try {
 					SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");

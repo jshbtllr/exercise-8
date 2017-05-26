@@ -32,7 +32,11 @@
             </tr>
         </thead>
         <tbody>
-            <%  List <Employee> allEmployee = EmployeeService.listEmployees(1,1);
+            <%  String input = (String) session.getAttribute("sort");
+                Integer sort = Integer.parseInt(input);
+                input = (String) session.getAttribute("order");
+                Integer order = Integer.parseInt(input);
+                List <Employee> allEmployee = EmployeeService.listEmployees(sort,order);
                 for(Employee employee : allEmployee) { 
                     String employed = null;
 

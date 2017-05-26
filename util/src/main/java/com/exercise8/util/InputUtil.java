@@ -88,30 +88,19 @@ public class InputUtil {
 		return output;	
 	}
 
-	public static Date getDate() {
+	public static Date getDate(String input) {
 		Date date = null;
 		Boolean flag = true;
-		String input = new String();
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		format.setLenient(false);
 
-		Scanner userInput = new Scanner(System.in);
-		input = userInput.nextLine();
-
-		while(true) {
 			try {
-				flag = true;
 				date = format.parse(input);
 			} catch(ParseException pe) {
 				flag = false;
 				System.out.print("Date or format incorrect. Input another: ");
-				input = userInput.nextLine();
 			}
-
-			if (flag) {
-				break;
-			}
-		}
+	
 
 		return date;
 	}

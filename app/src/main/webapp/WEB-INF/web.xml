@@ -42,6 +42,12 @@
         <servlet-class>com.exercise8.app.ContactInfoServlet</servlet-class>
     </servlet>                
 
+    <servlet>
+        <display-name>AddEmployeeServlet</display-name>
+        <servlet-name>AddEmployeeServlet</servlet-name>
+        <servlet-class>com.exercise8.app.AddEmployeeServlet</servlet-class>
+    </servlet>  
+
     <servlet-mapping>
     	<servlet-name>DeleteEmployeeServlet</servlet-name>
     	<url-pattern>/DeleteEmployeeServlet</url-pattern>
@@ -70,5 +76,10 @@
     <servlet-mapping>
         <servlet-name>ContactInfoServlet</servlet-name>
         <url-pattern>/ContactInfoServlet</url-pattern>
-    </servlet-mapping>              
+    </servlet-mapping>      
+
+    <servlet-mapping>
+        <servlet-name>AddEmployeeServlet</servlet-name>
+        <url-pattern>/AddEmployeeServlet</url-pattern>
+    </servlet-mapping>                  
 </web-app>
