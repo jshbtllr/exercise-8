@@ -28,7 +28,19 @@
     	<display-name>AddRoleServlet</display-name>
     	<servlet-name>AddRoleServlet</servlet-name>
     	<servlet-class>com.exercise8.app.AddRoleServlet</servlet-class>
-    </servlet>        
+    </servlet>  
+
+    <servlet>
+        <display-name>UpdateEmployeeRoleServlet</display-name>
+        <servlet-name>UpdateEmployeeRoleServlet</servlet-name>
+        <servlet-class>com.exercise8.app.UpdateEmployeeRoleServlet</servlet-class>
+    </servlet>   
+
+    <servlet>
+        <display-name>AddContactInfoServlet</display-name>
+        <servlet-name>AddContactInfoServlet</servlet-name>
+        <servlet-class>com.exercise8.app.AddContactInfoServlet</servlet-class>
+    </servlet>                
 
     <servlet-mapping>
     	<servlet-name>DeleteEmployeeServlet</servlet-name>
@@ -48,5 +60,15 @@
     <servlet-mapping>
     	<servlet-name>AddRoleServlet</servlet-name>
     	<url-pattern>/AddRoleServlet</url-pattern>
-    </servlet-mapping>        
+    </servlet-mapping>    
+
+    <servlet-mapping>
+        <servlet-name>UpdateEmployeeRoleServlet</servlet-name>
+        <url-pattern>/UpdateEmployeeRoleServlet</url-pattern>
+    </servlet-mapping>  
+
+    <servlet-mapping>
+        <servlet-name>AddContactInfoServlet</servlet-name>
+        <url-pattern>/AddContactInfoServlet</url-pattern>
+    </servlet-mapping>              
 </web-app>

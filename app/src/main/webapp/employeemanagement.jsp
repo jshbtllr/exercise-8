@@ -14,7 +14,7 @@
     <h4>Current Employees</h4><br/>
     <div>
     <a href=empregsystem.jsp>Back to Employee <br/> Registration System</a></td>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a align="right" href=addemployee.jsp>Add Role</a>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a align="right" href=addemployee.jsp>Add Employee</a>
     </div>
     <br/>
     <br/>    
@@ -74,6 +74,5 @@
             <%}%>
         </tbody>
     </table>
-    <a href=empregsystem.jsp>Back to Employee Registration System</a>
 </body>
 </html>

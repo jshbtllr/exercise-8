@@ -8,83 +8,68 @@ import java.util.Iterator;
 import org.apache.commons.validator.routines.EmailValidator;
 
 public class ContactInfoService {
-	public static void addContactInfo() {
-		String infoType = null;
+	public static Integer addContactInfo(Long employeeId, ContactInfo addInfo) {
 		Employee employee = null;
 		Set <ContactInfo> contacts;
-
-		EmployeeService.listEmployees(4, 0);
-		System.out.print("Add contact info to which employee: ");
-		Long employeeId = InputUtil.inputOptionCheck().longValue();
-
-		while (!(EmployeeDAO.employeeCheck(employeeId))) {
-			System.out.print("Employee ID chosen does not exist. Enter a new employee id to delete: ");
-			employeeId = InputUtil.inputOptionCheck().longValue();
-		}	
+		Integer contactCount = null;
 
 		employee = EmployeeDAO.getEmployeeCollection(employeeId);
 		contacts = employee.getContactInfo();	
+		contactCount = contacts.size();
 
-		contacts = addContactSet(contacts, employee);
+		contacts = addContactSet(contacts, employee, addInfo);
+
 		employee.setContactInfo(contacts);
 		EmployeeDAO.update(employee);
+		
+		if(contacts.size() == contactCount) {
+			return 0;
+		} else {
+			return 1;
+		}		
 	}
 
 
-	public static Set <ContactInfo> addContactSet(Set <ContactInfo> contacts, Employee employee) {	
+	public static Set <ContactInfo> addContactSet(Set <ContactInfo> contacts, Employee employee, ContactInfo addInfo) {	
 		Boolean exist = false;
-		System.out.println("Add Contact Information: ");
-		System.out.println("[1]    Add email");
-		System.out.println("[2]    Add telephone");
-		System.out.println("[3]    Add cellphone");
-		System.out.print("Input option: ");
-		
-		Integer option = InputUtil.inputOptionCheck(3);		
-		System.out.print("Input Information Details: ");
-		String infoDetail = InputUtil.getRequiredInput();
 
-		ContactInfo addInfo = checkInfo(infoDetail, option);
+		addInfo = checkInfo(addInfo);
 
-		if(contacts.isEmpty()) {
-			contacts.add(addInfo); 			
+		if(addInfo.getInfoType().equals(" ")) {
+			return contacts;
 		} else {
-			for(ContactInfo list : contacts) {
-				if(list.getInfoDetail().equals(addInfo.getInfoDetail())) {
-					exist = true;
-					System.out.println("Contact Info already added to employee");
+
+			if(contacts.isEmpty()) {
+				contacts.add(addInfo); 			
+			} else {
+				for(ContactInfo list : contacts) {
+					if(list.getInfoDetail().equals(addInfo.getInfoDetail())) {
+						exist = true;
+					}
+				}
+				if(!exist) {
+					contacts.add(addInfo);		
 				}
 			}
-			if(!exist) {
-				contacts.add(addInfo);		
-			}
 		}
-
 		return contacts;
 	}
 
-	public static ContactInfo checkInfo(String information, Integer option) {
-		String infoType = null;
-		if(option == 1) {
-			infoType = "email";
-			while(!EmailValidator.getInstance().isValid(information)) {
-				System.out.print("Input is not a valid email. Enter a valid email: ");
-				information = InputUtil.getRequiredInput();				
+	public static ContactInfo checkInfo(ContactInfo addInfo) {
+		if(addInfo.getInfoType().equals("email")) {
+			if(!EmailValidator.getInstance().isValid(addInfo.getInfoDetail())) {
+				addInfo.setInfoType(" ");
 			}
-		} else if(option == 2) {
-			infoType = "telephone";
-			while(!information.matches("^[1-9]{1}\\d{6}")) {
-				System.out.print("Input is not a valid telephone. Enter a valid 7 digit telephone: ");
-				information = InputUtil.getRequiredInput();
+		} else if(addInfo.getInfoType().equals("telephone")) {
+			if(!addInfo.getInfoDetail().matches("^[1-9]{1}\\d{6}")) {
+				addInfo.setInfoType(" ");
 			}
-		} else {
-			infoType = "cellphone";
-			while(!information.matches("^09\\d{9}")) {
-				System.out.print("Input is not a valid cellphone. Enter a valid 11 digit cellphone (09xxxxxxxxx): ");
-				information = InputUtil.getRequiredInput();
+		} else if(addInfo.getInfoType().equals("cellphone")) {
+			if(!addInfo.getInfoDetail().matches("^09\\d{9}")) {
+				addInfo.setInfoType(" ");
 			}			
 		}
 
-		ContactInfo addInfo = new ContactInfo(infoType, information);	
 		return addInfo;		
 	}
 
@@ -188,7 +173,7 @@ public class ContactInfoService {
 					exist = true;
 					System.out.print("Input new contact detail: ");
 					String infoDetail = InputUtil.getRequiredInput();
-					newInfo = checkInfo(infoDetail, option);					
+					//newInfo = checkInfo(infoDetail, option);					
 					list.setInfoDetail(newInfo.getInfoDetail());
 				}
 			}

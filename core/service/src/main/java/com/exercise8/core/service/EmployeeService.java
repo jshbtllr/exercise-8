@@ -91,7 +91,7 @@ public class EmployeeService {
 			System.out.print("Choose an option: ");
 			option = InputUtil.inputOptionCheck(2);
 			if(option == 1) {
-				role = EmployeeRoleService.addRoleSet(role);
+				//role = EmployeeRoleService.addRoleSet(role);
 			}
 		} while(option == 1);
 
@@ -105,7 +105,7 @@ public class EmployeeService {
 			option = InputUtil.inputOptionCheck(2);		
 			
 			if(option!= 2){
-				contacts = ContactInfoService.addContactSet(contacts, employee);
+//				contacts = ContactInfoService.addContactSet(contacts, employee);
 				employee.setContactInfo(contacts);
 			}
 		} while(option!= 2);

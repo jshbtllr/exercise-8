@@ -9,12 +9,21 @@
      <title>Employee Contact Info</title>
 </head>
 <body>
-	<%String id = request.getParameter("employeeId");
+	<%
+	String id = request.getParameter("employeeId");
 	Long employeeId = Long.parseLong(id);
 	Employee employee = EmployeeDAO.getEmployeeCollection(employeeId);
-	Set <ContactInfo> list = employee.getContactInfo();%>
-	<h3>Employee Roles</h3>
+	Set <ContactInfo> list = employee.getContactInfo();
+	session.setAttribute("id", id);
+	%>
+	<h3>Employee <%=employee.getName().getFirstName()%> <%=employee.getName().getLastName()%>'s Contact Information List</h3>
 	<br/>
+    <div>
+    <a href=employeemanagement.jsp>Back to Employee <br/> Management</a></td>
+    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a align="right" href=addempcontact.jsp>Add Contacts</a>
+    </div>
+    <br/>
+    <br/>		
 	<table border="1" align="left" cellpadding="5">
 		<thead>
 			<tr>

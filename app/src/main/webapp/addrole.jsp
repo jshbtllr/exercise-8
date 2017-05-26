@@ -19,8 +19,8 @@
 				<td>
 					<input type="text" name="roleName" maxlength="255"/>
 				</td>
-			</tr rowspan="2" align="center">
-			<tr>
+			</tr>
+			<tr rowspan="2" align="center">
 				<td colspan="2" align="center">
 					<input type="submit" value="Add Role"/>
 				</td>
