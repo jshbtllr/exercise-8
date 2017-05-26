@@ -13,7 +13,7 @@
 	Long employeeId = Long.parseLong(empId);
 	Employee employee = EmployeeDAO.getEmployeeCollection(employeeId);
 	%>
-	<h3>Add Role to <%=employee.getName().getFirstName()%> <%=employee.getName().getLastName()%>'s Role List</h3>
+	<h3>Add Contact Info to <%=employee.getName().getFirstName()%> <%=employee.getName().getLastName()%>'s Role List</h3>
 	<br/>
     <div>
     <a href=employeemanagement.jsp>Back to Employee <br/> Management</a></td>
@@ -21,7 +21,7 @@
     <br/>
     <br/>	
 	<h4>Add email, telephone or cellphone</hr>
-	<form action="AddContactInfoServlet" method="POST">
+	<form action="ContactInfoServlet" method="POST">
 		<table align="left" cellpadding="8">
 			<tr>
 				<td>Contact Info Type</td>
@@ -35,7 +35,7 @@
 			</tr>
 
 			<tr>
-				<td>Contact Info Detaills</td>
+				<td>Contact Info Details</td>
 				<td>
 					<input type="text" name="infoDetail" maxlength="255"/> (input information details)
 				</td>
@@ -44,6 +44,7 @@
 			<tr rowspan="2" align="center">
 				<td colspan="2" align="center">
 					<input type="hidden" name="employeeId" value="<%=employeeId%>"/>
+					<input type="hidden" name="status" value="add"/>
 					<input type="submit" value="Add Contact Info to Employee"/>
 				</td>
 			</tr>

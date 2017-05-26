@@ -55,166 +55,74 @@ public class ContactInfoService {
 		return contacts;
 	}
 
-	public static ContactInfo checkInfo(ContactInfo addInfo) {
-		if(addInfo.getInfoType().equals("email")) {
-			if(!EmailValidator.getInstance().isValid(addInfo.getInfoDetail())) {
-				addInfo.setInfoType(" ");
+	public static ContactInfo checkInfo(ContactInfo info) {
+		if(info.getInfoType().equals("email")) {
+			if(!EmailValidator.getInstance().isValid(info.getInfoDetail())) {
+				info.setInfoType(" ");
 			}
-		} else if(addInfo.getInfoType().equals("telephone")) {
-			if(!addInfo.getInfoDetail().matches("^[1-9]{1}\\d{6}")) {
-				addInfo.setInfoType(" ");
+		} else if(info.getInfoType().equals("telephone")) {
+			if(!info.getInfoDetail().matches("^[1-9]{1}\\d{6}")) {
+				info.setInfoType(" ");
 			}
-		} else if(addInfo.getInfoType().equals("cellphone")) {
-			if(!addInfo.getInfoDetail().matches("^09\\d{9}")) {
-				addInfo.setInfoType(" ");
+		} else if(info.getInfoType().equals("cellphone")) {
+			if(!info.getInfoDetail().matches("^09\\d{9}")) {
+				info.setInfoType(" ");
 			}			
 		}
 
-		return addInfo;		
+		return info;		
 	}
 
-	public static void removeContactInfo() {
-		EmployeeService.listEmployees(4, 0);
-		String information;
-		Long employeeId;
+	public static Integer removeContactInfo(Long employeeId, ContactInfo deleteContact) {
 		Employee employee;
 		Boolean exist = false;
 		Set <ContactInfo> contacts = null;
 		Iterator <ContactInfo> iterator = null;
 
-		System.out.print("Delete a contact info from which employee: ");
-		employeeId = InputUtil.inputOptionCheck().longValue();
-
-		while (!(EmployeeDAO.employeeCheck(employeeId))) {
-			System.out.print("Employee ID chosen does not exist. Enter a new employee id to delete: ");
-			employeeId = InputUtil.inputOptionCheck().longValue();
-		}
-
 		employee = EmployeeDAO.getEmployeeCollection(employeeId);
 		contacts = employee.getContactInfo();
 
-		System.out.print("Employee has ");
-
-		if(!contacts.isEmpty()) {
-			System.out.println("the below Contact Info: ");
-			for(ContactInfo list : contacts) {
-				System.out.println("Contact Info Type: " + list.getInfoType());
-				System.out.println("Contact Info: " + list.getInfoDetail());
-				System.out.println("-------------------");
+		iterator = contacts.iterator();
+		while(iterator.hasNext()) {
+			if(deleteContact.getInfoDetail().equals(iterator.next().getInfoDetail())) {
+				exist = true;
+				iterator.remove();
 			}
-			System.out.print("Input the Contact Info to remove: ");
-			information = InputUtil.getRequiredInput();
-
-			iterator = contacts.iterator();
-			while(iterator.hasNext()) {
-				if(information.equals(iterator.next().getInfoDetail())) {
-					exist = true;
-					iterator.remove();
-				}
-			}
-
-			employee.setContactInfo(contacts);
-			EmployeeDAO.update(employee);
-
-			if(!exist) {
-				System.out.println("Contact Info given not assigned to employee");
-			}	
-		} else {
-			System.out.println("no Contact Info to delete");
 		}
 
+		employee.setContactInfo(contacts);
+		EmployeeDAO.update(employee);
+
+		if(!exist) {
+			return 0;
+		}	
+		return 1;
 	}
 
-	public static void updateContactInfo() {
-		EmployeeService.listEmployees(4, 0);
-		Long employeeId;
-		Employee employee;
+	public static Integer updateContactInfo(Long employeeId, ContactInfo updateContact, String newInfoDetail) {
+		Employee employee = null;
 		Boolean exist = false;
-		String information;
-		ContactInfo newInfo = null;
+		ContactInfo newInfo = new ContactInfo(updateContact.getInfoType(), newInfoDetail);
 		Set <ContactInfo> contacts = null;
 		Iterator <ContactInfo> iterator = null;		
 
-		EmployeeService.listEmployees(4, 0);
-		System.out.print("Add contact info to which employee: ");
-		employeeId = InputUtil.inputOptionCheck().longValue();
-
-		while (!(EmployeeDAO.employeeCheck(employeeId))) {
-			System.out.print("Employee ID chosen does not exist. Enter a new employee id to delete: ");
-			employeeId = InputUtil.inputOptionCheck().longValue();
-		}	
-
 		employee = EmployeeDAO.getEmployeeCollection(employeeId);
 		contacts = employee.getContactInfo();
-
-		System.out.print("Employee has ");
-
-		if(!contacts.isEmpty()) {
-			System.out.println("the below Contact Info: ");
-			for(ContactInfo list : contacts) {
-				System.out.println("Contact Info Type: " + list.getInfoType());
-				System.out.println("Contact Info: " + list.getInfoDetail());
-				System.out.println("-------------------");
-			}
-			System.out.print("Input the Contact Info to update: ");
-			information = InputUtil.getRequiredInput();
-			
-			for(ContactInfo list : contacts) {
-				if(information.equals(list.getInfoDetail())) {
-					Integer option = null;
-					if (list.getInfoType().equals("email")) {
-						option = 1;
-					} else if (list.getInfoType().equals("telephone")) {
-						option = 2;
-					} else {
-						option = 3;
-					}
-
-					exist = true;
-					System.out.print("Input new contact detail: ");
-					String infoDetail = InputUtil.getRequiredInput();
-					//newInfo = checkInfo(infoDetail, option);					
-					list.setInfoDetail(newInfo.getInfoDetail());
+		
+		for(ContactInfo list : contacts) {
+			if(updateContact.getInfoDetail().equals(list.getInfoDetail())) {
+				newInfo = checkInfo(newInfo);
+				if(newInfo.getInfoType().equals(" ")) {
+					return 0;
+				} else {					
+					list.setInfoDetail(newInfoDetail);
 				}
 			}
-
-			employee.setContactInfo(contacts);
-			EmployeeDAO.update(employee);
-
-			if(!exist) {
-				System.out.println("Contact Info not assigned to employee");
-			}
-
-		} else {
-			System.out.println("no contact information");
-		}		
-	}
-
-	public static void listContactInfo() {
-		EmployeeService.listEmployees(4, 0);
-		Long employeeId;
-		Employee employee = null;
-		Set <ContactInfo> contacts = null;
-		System.out.print("Show Contact Information of which EmployeeId: ");
-		employeeId = InputUtil.inputOptionCheck().longValue();
-
-		while (!(EmployeeDAO.employeeCheck(employeeId))) {
-			System.out.print("Employee ID chosen does not exist. Enter a new employee id to delete: ");
-			employeeId = InputUtil.inputOptionCheck().longValue();
-		}			
-
-		employee = EmployeeDAO.getEmployeeCollection(employeeId);	
-		contacts = employee.getContactInfo();
-
-		if(!contacts.isEmpty()) {
-			System.out.println("Employee has below Contact Info: ");
-			for(ContactInfo list : contacts) {
-				System.out.println("Contact Info Type: " + list.getInfoType());
-				System.out.println("Contact Info: " + list.getInfoDetail());
-				System.out.println("-------------------");
-			}
-		} else {
-			System.out.println("Employee has no Contact Info");
 		}
+
+		employee.setContactInfo(contacts);
+		EmployeeDAO.update(employee);	
+
+		return 1;
 	}
 }

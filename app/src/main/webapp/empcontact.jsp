@@ -38,11 +38,19 @@
 				<td style="text-align:center"><%=contact.getInfoType()%></td>
                 <td style="text-align:center"><%=contact.getInfoDetail()%></td>
                 <td style="text-align:center">
-                    <form action="DeleteContactInfoServlet" method="post">
+                    <form action="ContactInfoServlet" method="post">
+						<input type="hidden" name="employeeId" value="<%=employeeId%>"/>
+	                    <input type="hidden" name="infoDetail" value="<%=contact.getInfoDetail()%>"/>
+	                    <input type="hidden" name="infoType" value="<%=contact.getInfoType()%>"/>
+                    	<input type="hidden" name="status" value="delete"/>
                         <input type="submit" value="Delete"/>
                     </form>
-                    <form action="UpdateContactInfoServlet" method="post">
-                        <input type="submit" value="Update"/>
+                    <form action="updatecontactform.jsp" method="post">
+						<input type="hidden" name="employeeId" value="<%=employeeId%>"/>
+	                    <input type="hidden" name="infoDetail" value="<%=contact.getInfoDetail()%>"/>
+	                    <input type="hidden" name="infoType" value="<%=contact.getInfoType()%>"/>
+                    	<input type="hidden" name="status" value="update"/>
+                        <input type="submit" value="Update"/s>
                     </form>                    
                 </td>
             </tr>

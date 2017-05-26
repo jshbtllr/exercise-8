@@ -25,8 +25,8 @@
 				<td>
 					<input type="text" name="roleName" value=<%=role.getRoleName()%> maxlength="255"/>
 				</td>
-			</tr rowspan="2" align="center">
-			<tr>
+			</tr>
+			<tr rowspan="2" align="center">
 				<td colspan="2" align="center">
 					<input type="hidden" name="roleId" value="<%=roleId%>"/>
 					<input type="submit" value="Update"/>

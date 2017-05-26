@@ -37,9 +37,9 @@
     </servlet>   
 
     <servlet>
-        <display-name>AddContactInfoServlet</display-name>
-        <servlet-name>AddContactInfoServlet</servlet-name>
-        <servlet-class>com.exercise8.app.AddContactInfoServlet</servlet-class>
+        <display-name>ContactInfoServlet</display-name>
+        <servlet-name>ContactInfoServlet</servlet-name>
+        <servlet-class>com.exercise8.app.ContactInfoServlet</servlet-class>
     </servlet>                
 
     <servlet-mapping>
@@ -68,7 +68,7 @@
     </servlet-mapping>  
 
     <servlet-mapping>
-        <servlet-name>AddContactInfoServlet</servlet-name>
-        <url-pattern>/AddContactInfoServlet</url-pattern>
+        <servlet-name>ContactInfoServlet</servlet-name>
+        <url-pattern>/ContactInfoServlet</url-pattern>
     </servlet-mapping>              
 </web-app>
