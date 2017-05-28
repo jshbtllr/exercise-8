@@ -12,10 +12,29 @@
 <body>
     <h3>Employee Management</h3>
     <h4>Current Employees</h4><br/>
-    <div>
-    <a href=empregsystem.jsp>Back to Employee <br/> Registration System</a></td>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a align="right" href=addemployee.jsp>Add Employee</a>
-    </div>
+
+    <table width=100%>
+        <td width=50% align="left">
+            <a href=empregsystem.jsp>Back to Employee <br/> Registration System</a>
+        </td>
+        <td width=50% align="right">
+            <a href=addemployee.jsp>Add Employee</a>
+            <br/>
+            Sort by:
+            <form action="employeemanagement.jsp" method="GET">
+                <select name="orderBy"  onchange="this.form.submit()">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="lastasc">Last Name Ascending</option>
+                    <option value="lastdesc">Last Name Descending</option>
+                    <option value="gwaasc">Grades Ascending</option>
+                    <option value="gwadesc">Grades Descending</option>
+                    <option value="hiredateasc">Hire Date Ascending</option>
+                    <option value="hiredatedesc">Hire Date Descending</option>
+                </select>
+            </form>
+        </td>
+    </table>
+    <div style = "clear:both;"></div>
     <br/>
     <br/>    
     <table border='1' align='left'>
@@ -32,10 +51,38 @@
             </tr>
         </thead>
         <tbody>
-            <%  String input = (String) session.getAttribute("sort");
-                Integer sort = Integer.parseInt(input);
-                input = (String) session.getAttribute("order");
-                Integer order = Integer.parseInt(input);
+            <%  
+                String sortOption = request.getParameter("orderBy");
+                Integer sort = null;
+                Integer order = null;
+                try {                
+                    if(sortOption.equals("lastasc")) {
+                        sort = 1;
+                        order = 1;
+                    } else if(sortOption.equals("lastdesc")) {
+                        sort = 1;
+                        order = 2;
+                    } else if(sortOption.equals("gwaasc")) {
+                        sort = 2;
+                        order = 1;
+                    } else if(sortOption.equals("gwadesc")) {
+                        sort = 2;
+                        order = 2;
+                    } else if(sortOption.equals("hiredateasc")) {
+                        sort = 3;
+                        order = 1;
+                    } else if(sortOption.equals("hiredatedesc")) {
+                        sort = 3;
+                        order = 2;
+                    } else {
+                        sort = 4;
+                        order = 0;
+                    }
+                } catch (NullPointerException npe) {
+                    sort = 4;
+                    order = 0;
+                }
+
                 List <Employee> allEmployee = EmployeeService.listEmployees(sort,order);
                 for(Employee employee : allEmployee) { 
                     String employed = null;

@@ -18,10 +18,16 @@
 	%>
 	<h3>Employee <%=employee.getName().getFirstName()%> <%=employee.getName().getLastName()%>'s Contact Information List</h3>
 	<br/>
-    <div>
-    <a href=employeemanagement.jsp>Back to Employee <br/> Management</a></td>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a align="right" href=addempcontact.jsp>Add Contacts</a>
-    </div>
+
+    <table width=100%>
+        <td width=50% align="left">
+            <a href=empregsystem.jsp>Back to Employee <br/> Registration System</a>
+        </td>
+        <td width=50% align="right">
+            <a href=addempcontact.jsp>Add Contacts</a>
+        </td>
+    </table>
+    <div style = "clear:both;"></div>	
     <br/>
     <br/>		
 	<table border="1" align="left" cellpadding="5">

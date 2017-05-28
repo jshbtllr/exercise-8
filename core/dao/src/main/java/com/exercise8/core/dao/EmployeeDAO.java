@@ -46,6 +46,8 @@ public class EmployeeDAO extends GenericDAO {
 					System.out.println("Sorts by hiredate desc");
 					criteria.addOrder(Order.desc("hireDate"));
 				}
+			} else if(sort == 4) {
+				criteria.addOrder(Order.asc("id"));
 			}
 
 			list = criteria.list();	
