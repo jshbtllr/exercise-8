@@ -37,7 +37,7 @@
 			<tr rowspan="2" align="center">
 				<td colspan="2" align="center">
 					<input type="hidden" name="employeeId" value="<%=employeeId%>"/>
-					<input type="hidden" name="status" value="1"/>
+					<input type="hidden" name="status" value="add"/>
 					<input type="submit" value="Add Role to Employee"/>
 				</td>
 			</tr>

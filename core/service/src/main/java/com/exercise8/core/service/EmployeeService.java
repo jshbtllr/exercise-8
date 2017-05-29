@@ -116,7 +116,7 @@ public class EmployeeService {
 		//	employee.setBirthday(InputUtil.getDate());
 		} else if (option == 4) {
 			System.out.print("Input new GWA: ");
-			employee.setGradeWeightAverage(InputUtil.getGrade());
+			//employee.setGradeWeightAverage(InputUtil.getGrade());
 		} else {
 			System.out.print("Input New Employee Status Y if Name is employed, N if not: ");
 			employed = InputUtil.getStatus();

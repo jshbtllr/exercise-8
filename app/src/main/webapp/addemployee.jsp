@@ -1,6 +1,10 @@
 <%@page import="com.exercise8.core.dao.EmployeeDAO"%>
 <%@page import="com.exercise8.core.model.Employee"%>
+<%@page import="com.exercise8.core.model.Roles"%>
+<%@page import="com.exercise8.core.model.ContactInfo"%>
+<%@page import="com.exercise8.core.service.RoleService"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.Set"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,8 +19,12 @@
     </div>
     <br/>
     <br/>	
+    <%
+    	Set <Roles> roles = (Set <Roles>) session.getAttribute("roleSet");
+    	Set <ContactInfo> contacts = (Set <ContactInfo>) session.getAttribute("contactSet");
+    %>
 	<form action="AddEmployeeServlet" method="POST">
-		<table align="left" cellpadding="8">
+		<table align="left" cellpadding="8" onLoad="document.getElementById('hiredate').disabled = true;">
 			<tr>
 				<td>Title</td>
 				<td>
@@ -95,12 +103,62 @@
 			</tr>														
 
 			<tr>
-				<td>grade</td>
+				<td>Grade</td>
 				<td>
 					<input type="text" name="grade" maxlength="6" required/> 
 				</td>
-			</tr>														
+			</tr>
 
+			<tr>
+				<td>Employed?</td>
+				<td>
+					<input type="radio" name="employed" value="true" onclick="document.getElementById('hiredate').disabled = false;" required>
+						Yes
+					</input>
+					<input type="radio" name="employed" value="false" onclick="document.getElementById('hiredate').disabled = true;">
+						No
+					</input>
+				</td>
+			</tr>
+			<tr>
+				<td>Hire Date</td>
+				<td>
+					<input type="text" name="hiredate" id="hiredate" required maxlength="10" disabled> (dd/mm/yyyy)
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">
+                    <form action="createroleset.jsp" method="post">
+                    	Add Role ID: <input type="text" id="newrole" name="role">
+                    	<br/>
+                        <input type="button" value="Add Roles"/>
+                    </form>
+			
+					<br/>
+				    <table border='1' align='center'>
+				        <thead>
+				            <tr>
+				                <th>Role ID</th>
+				                <th>Role Code</th>
+				                <th>Role Name</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+						<%
+							List <Roles> allRoles = RoleService.listRoles(1, 1);
+			            	for(Roles list : allRoles) { 
+            			%>				        	
+			            	<tr>
+			                	<td style="text-align:center"><%=list.getId()%></td>
+			                	<td style="text-align:center"><%=list.getRoleCode()%></td>
+			                	<td style="text-align:center"><%=list.getRoleName()%></td>
+							</tr>
+						<%
+							}
+						%>							
+						</tbody>
+					</table>
+				</td>
 			<tr rowspan="2" align="center">
 				<td colspan="2" align="center">
 					<input type="submit" value="Add Employee"/>

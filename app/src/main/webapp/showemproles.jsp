@@ -16,12 +16,16 @@
 	Set <Roles> roles = employee.getRole();
 	session.setAttribute("empId", id);
 	%>
-	<h3>Employee <%=employee.getName().getFirstName()%> <%=employee.getName().getLastName()%>'s Role List</h3>
-	<br/>
-    <div>
-    <a href=employeemanagement.jsp>Back to Employee <br/> Management</a></td>
-    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a align="right" href=addemployeerole.jsp>Add Role</a>
-    </div>
+	<h3>Employee <%=employee.getName().getFirstName()%> <%=employee.getName().getLastName()%>'s Role List</h3><br/>
+    <table width=50%>
+        <td width=25% align="left">
+            <a href=employeemanagement.jsp>Back to Employee <br/> Management</a>
+        </td>
+        <td width=25% align="right">
+  			<a href=addemployeerole.jsp>Add Role</a>
+  		</td>
+  	</table>
+    <div style = "clear:both;"></div>
     <br/>
     <br/>	
 	<table border="1" align="left" cellpadding="5">

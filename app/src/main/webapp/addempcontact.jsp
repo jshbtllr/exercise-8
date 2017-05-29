@@ -20,7 +20,7 @@
     </div>
     <br/>
     <br/>	
-	<h4>Add email, telephone or cellphone</hr>
+	<h4>Add email, telephone or cellphone</h4>
 	<form action="ContactInfoServlet" method="POST">
 		<table align="left" cellpadding="8">
 			<tr>

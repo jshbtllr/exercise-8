@@ -19,11 +19,11 @@
 	<h3>Employee <%=employee.getName().getFirstName()%> <%=employee.getName().getLastName()%>'s Contact Information List</h3>
 	<br/>
 
-    <table width=100%>
-        <td width=50% align="left">
-            <a href=empregsystem.jsp>Back to Employee <br/> Registration System</a>
+    <table width=50%>
+        <td width=25% align="left">
+            <a href=employeemanagement.jsp>Back to Employee <br/> Management</a>
         </td>
-        <td width=50% align="right">
+        <td width=25% align="right">
             <a href=addempcontact.jsp>Add Contacts</a>
         </td>
     </table>

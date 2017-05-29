@@ -1,7 +1,9 @@
 <%@page import="com.exercise8.core.service.EmployeeService"%>
 <%@page import="com.exercise8.core.model.Employee"%>
+<%@page import="com.exercise8.core.model.Roles"%>
+<%@page import="com.exercise8.core.model.ContactInfo"%>
 <%@page import="java.util.Date"%>
-
+<%@page import="java.util.Set"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,12 +20,17 @@
             <a href=empregsystem.jsp>Back to Employee <br/> Registration System</a>
         </td>
         <td width=50% align="right">
+            <%
+                Set <Roles> roles = null;
+                Set <ContactInfo> contacts = null;
+                session.setAttribute("roleSet", roles);
+                session.setAttribute("contactSet", contacts);
+            %>
             <a href=addemployee.jsp>Add Employee</a>
             <br/>
-            Sort by:
-            <form action="employeemanagement.jsp" method="GET">
+            Sort by <form action="employeemanagement.jsp" method="GET">
                 <select name="orderBy"  onchange="this.form.submit()">
-                    <option disabled selected value> -- select an option -- </option>
+                    <option disabled selected value>Select Sort Option</option>
                     <option value="lastasc">Last Name Ascending</option>
                     <option value="lastdesc">Last Name Descending</option>
                     <option value="gwaasc">Grades Ascending</option>
@@ -109,13 +116,16 @@
                 <td style="text-align:center">
                     <form action="showemproles.jsp" method="post">
                         <input type="hidden" name="employeeId" value="<%=employee.getId()%>"/>
-                        <input type="submit" value="Show Roles"/>
+                        <input type="submit" value="Roles"/>
                     </form>    
                     <form action="empcontact.jsp" method="post">
                         <input type="hidden" name="employeeId" value="<%=employee.getId()%>"/>
-                        <input type="submit" value="Show Contact Info"/>
+                        <input type="submit" value="Contact Info"/>
                     </form>
-                    <a href="updateemployee.jsp">Update Employee</a><br/>
+                    <form action="updateemployee.jsp" method="post">
+                        <input type="hidden" name="employeeId" value="<%=employee.getId()%>"/>
+                        <input type="submit" value="Update"/>
+                    </form>                    
                     <form action="DeleteEmployeeServlet" method="post">
                         <input type="hidden" name="employeeId" value="<%=employee.getId()%>"/>
                         <input type="submit" value="Delete"/>

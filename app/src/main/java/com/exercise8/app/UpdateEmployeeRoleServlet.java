@@ -22,7 +22,7 @@ public class UpdateEmployeeRoleServlet extends HttpServlet {
 	    Integer success = null;
 	            
 	    try { 
-	    	if(status.equals("1")) {
+	    	if(status.equals("add")) {
 	    		success = EmployeeRoleService.addRemoveEmployeeRoles(1, employeeId, roleId);
 	        	out.println("<html>");
 	        	out.println("<head>");      

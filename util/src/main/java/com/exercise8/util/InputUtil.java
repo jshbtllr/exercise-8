@@ -88,6 +88,21 @@ public class InputUtil {
 		return output;	
 	}
 
+
+	public static Boolean checkDate(String input) {
+		Date date = null;
+		Boolean flag = true;
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		format.setLenient(false);
+
+			try {
+				date = format.parse(input);
+			} catch(ParseException pe) {
+				flag = false;
+			}
+		return flag;
+	}
+
 	public static Date getDate(String input) {
 		Date date = null;
 		Boolean flag = true;
@@ -100,8 +115,6 @@ public class InputUtil {
 				flag = false;
 				System.out.print("Date or format incorrect. Input another: ");
 			}
-	
-
 		return date;
 	}
 
@@ -127,30 +140,12 @@ public class InputUtil {
 		return output;
 	}
 
-	public static Float getGrade() {
-		Scanner userInput = new Scanner(System.in);
-		String input = new String();
-		Float grade;
-
-		while (true){
-			input = userInput.nextLine();
-			
-			try{
-				grade = Float.parseFloat(input);
-				
-				if ((grade < 1) || grade > 5) {
-					System.out.print("Grade is invalid. Input a valid GWA from 1 to 5: ");
-				} else if (input.length() > 6) {
-					System.out.print("Grade should only have at most 4 decimal places.\nInput a valid GWA: ");
-				} else {
-					break;
-				}
-
-			} catch (NumberFormatException ne) {
-				System.out.print("Input not a number, please provide another: ");
-			}
+	public static Boolean checkGrade(Float grade) {
+		
+		if ((grade < 1) || grade > 5) {
+			return false;
+		} else {
+			return true;
 		}
-
-		return grade;
 	}	
 }
