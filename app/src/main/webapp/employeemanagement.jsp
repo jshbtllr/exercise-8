@@ -20,12 +20,6 @@
             <a href=empregsystem.jsp>Back to Employee <br/> Registration System</a>
         </td>
         <td width=50% align="right">
-            <%
-                Set <Roles> roles = null;
-                Set <ContactInfo> contacts = null;
-                session.setAttribute("roleSet", roles);
-                session.setAttribute("contactSet", contacts);
-            %>
             <a href=addemployee.jsp>Add Employee</a>
             <br/>
             Sort by <form action="employeemanagement.jsp" method="GET">

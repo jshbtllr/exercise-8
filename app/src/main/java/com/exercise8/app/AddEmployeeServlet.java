@@ -7,6 +7,8 @@ import com.exercise8.core.model.Employee;
 import com.exercise8.core.model.Name;
 import com.exercise8.util.InputUtil;
 import com.exercise8.core.service.EmployeeService;
+import com.exercise8.core.service.EmployeeRoleService;
+import com.exercise8.core.service.ContactInfoService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -34,8 +36,12 @@ public class AddEmployeeServlet extends HttpServlet {
 	    String city = request.getParameter("city");
 	    String country = request.getParameter("country");
 	    String zipcode = request.getParameter("zipcode");
+	    String infoType = request.getParameter("infoType");
+	    String infoDetail = request.getParameter("infoDetail");
 	    Float gradeWeightAverage = null;
 	    Date birthdate = null;
+	    String id = request.getParameter("roleId");
+	    Long roleId = Long.parseLong(id);
 
 	    try {
 		    String grade = request.getParameter("grade");
@@ -74,37 +80,43 @@ public class AddEmployeeServlet extends HttpServlet {
 	    }
 
 		Set <ContactInfo> contacts = new HashSet <ContactInfo>();
-		Set <Roles> role = new HashSet <Roles>();	    
+		Set <Roles> role = new HashSet <Roles>();
+
+		ContactInfo newInfo = new ContactInfo(infoType, infoDetail);
 
 		Address address = new Address(streetNumber, barangay, city, country, zipcode);
 		Name name = new Name(firstName, lastName, middleName, suffix, title);
 		Employee employee = new Employee(name, address, birthdate, gradeWeightAverage, hireDate, employed, contacts, role);	    
+		role = EmployeeRoleService.addRoleSet(role, roleId);
+		contacts = ContactInfoService.addContactSet(contacts, employee, newInfo);
+		employee.setContactInfo(contacts);
+		employee.setRole(role);
 	            
 	    try { 
 	    	if (success == 0) {
 	    		success = EmployeeService.createEmployee(employee);
-	    	}
+	    	} 
 
-	        out.println("<html>");
-	        out.println("<head>");      
-	        out.println("<title>Add Employee</title>");    
-	        out.println("</head>");
-	        out.println("<body>");
-	        out.println("<center>");
-	        if (success == 1) {
-	        	out.println("<h2>Employee successfully added</h2><br/><br/>");
-	        } else if(success == 2) {
-	        	out.println("<h2>Invalid Hire Date input. Employee not added</h2><br/><br/>");
-	        } else if(success == 3) {
-	        	out.println("<h2>Invalid Grade input. Employee not added</h2><br/><br/>");
-	        } else if (success == 4) {
-	        	out.println("<h2>Invalid Birthday input. Employee not added</h2><br/><br/>");
-	        }
+		    out.println("<html>");
+		    out.println("<head>");      
+		    out.println("<title>Add Employee</title>");    
+		    out.println("</head>");
+		    out.println("<body>");
+		    out.println("<center>");
+		    if (success == 1) {
+		     	out.println("<h2>Employee Added.</h2><br/><br/>");
+		    } else if(success == 2) {
+		     	out.println("<h2>Invalid Hire Date input.</h2><br/><br/>");
+		    } else if(success == 3) {
+		      	out.println("<h2>Invalid Grade input.</h2><br/><br/>");
+		    } else if (success == 4) {
+		      	out.println("<h2>Invalid Birthday input.</h2><br/><br/>");
+		    }
 
-	        out.println("<a href=employeemanagement.jsp>Back to Employee Management</a>");
-	        out.println("</center>");	        
-        	out.println("</body>");
-        	out.println("</html>");
+		    out.println("<a href=employeemanagement.jsp>Back to Employee Management</a>");
+		    out.println("</center>");	        
+	        out.println("</body>");
+	        out.println("</html>");
     	} finally {       
         	out.close();
     	}

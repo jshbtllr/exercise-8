@@ -128,13 +128,8 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-                    <form action="createroleset.jsp" method="post">
-                    	Add Role ID: <input type="text" id="newrole" name="role">
-                    	<br/>
-                        <input type="button" value="Add Roles"/>
-                    </form>
-			
-					<br/>
+                    Add Role ID: <input type="text" id="newrole" name="roleId" required>
+                    <br/>
 				    <table border='1' align='center'>
 				        <thead>
 				            <tr>
@@ -159,9 +154,28 @@
 						</tbody>
 					</table>
 				</td>
+			</tr>
+
+			<tr>
+				<td>Contact Info Type</td>
+				<td>
+					<select name="infoType">
+						<option value="email">email</option>
+						<option value="telephone">telephone</option>
+						<option value="cellphone">cellphone</option>
+					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<td>Contact Info Details</td>
+				<td>
+					<input type="text" name="infoDetail" maxlength="255"/> (input information details)
+				</td>
+			</tr>			
+
 			<tr rowspan="2" align="center">
 				<td colspan="2" align="center">
-					<input type="hidden" name="status" value="add"/>
 					<input type="submit" value="Add Employee"/>
 				</td>
 			</tr>
