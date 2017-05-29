@@ -161,6 +161,7 @@
 				</td>
 			<tr rowspan="2" align="center">
 				<td colspan="2" align="center">
+					<input type="hidden" name="status" value="add"/>
 					<input type="submit" value="Add Employee"/>
 				</td>
 			</tr>

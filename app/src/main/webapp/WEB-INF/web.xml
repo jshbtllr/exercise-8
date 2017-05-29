@@ -48,6 +48,12 @@
         <servlet-class>com.exercise8.app.AddEmployeeServlet</servlet-class>
     </servlet>  
 
+    <servlet>
+        <display-name>UpdateEmployeeServlet</display-name>
+        <servlet-name>UpdateEmployeeServlet</servlet-name>
+        <servlet-class>com.exercise8.app.UpdateEmployeeServlet</servlet-class>
+    </servlet>      
+
     <servlet-mapping>
     	<servlet-name>DeleteEmployeeServlet</servlet-name>
     	<url-pattern>/DeleteEmployeeServlet</url-pattern>
@@ -82,4 +88,9 @@
         <servlet-name>AddEmployeeServlet</servlet-name>
         <url-pattern>/AddEmployeeServlet</url-pattern>
     </servlet-mapping>                  
+
+    <servlet-mapping>
+        <servlet-name>UpdateEmployeeServlet</servlet-name>
+        <url-pattern>/UpdateEmployeeServlet</url-pattern>
+    </servlet-mapping>      
 </web-app>
