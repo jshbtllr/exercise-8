@@ -92,7 +92,8 @@
                         employed = "Yes";
                     } else {
                         employed = "No";
-                    } %>
+                    } 
+            %>
             <tr>
                 <td style="text-align:center"><%=employee.getId()%></td>
                 <td style="text-align:center"><%=employee.getName().getTitle()%> <%=employee.getName().getFirstName()%> <%=employee.getName().getMiddleName()%> <%=employee.getName().getLastName()%> <%=employee.getName().getSuffix()%></td>
@@ -126,7 +127,9 @@
                     </form>
                 </td>
             </tr>
-            <%}%>
+            <%
+                }
+            %>
         </tbody>
     </table>
 </body>

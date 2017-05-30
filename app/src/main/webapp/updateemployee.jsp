@@ -111,7 +111,7 @@
 			<tr>
 				<td>Title</td>
 				<td>
-					<input type="text" id="title" name="title" maxlength="255" value=<%=employee.getName().getTitle()%> disabled/>
+					<input type="text" id="title" name="title" maxlength="255" value="<%=employee.getName().getTitle()%>" disabled/>
 				</td>
 			</tr>
 
@@ -132,7 +132,7 @@
 			<tr>
 				<td>Last Name</td>
 				<td>
-					<input type="text" id="lastName" name="lastName" maxlength="255" value=<%=employee.getName().getLastName()%> required disabled/>
+					<input type="text" id="lastName" name="lastName" maxlength="255" value="<%=employee.getName().getLastName()%>" required disabled/>
 				</td>
 			</tr>
 

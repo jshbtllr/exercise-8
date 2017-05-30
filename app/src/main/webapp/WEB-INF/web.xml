@@ -31,9 +31,9 @@
     </servlet>  
 
     <servlet>
-        <display-name>UpdateEmployeeRoleServlet</display-name>
-        <servlet-name>UpdateEmployeeRoleServlet</servlet-name>
-        <servlet-class>com.exercise8.app.UpdateEmployeeRoleServlet</servlet-class>
+        <display-name>EmployeeRoleServlet</display-name>
+        <servlet-name>EmployeeRoleServlet</servlet-name>
+        <servlet-class>com.exercise8.app.EmployeeRoleServlet</servlet-class>
     </servlet>   
 
     <servlet>
@@ -75,8 +75,8 @@
     </servlet-mapping>    
 
     <servlet-mapping>
-        <servlet-name>UpdateEmployeeRoleServlet</servlet-name>
-        <url-pattern>/UpdateEmployeeRoleServlet</url-pattern>
+        <servlet-name>EmployeeRoleServlet</servlet-name>
+        <url-pattern>/EmployeeRoleServlet</url-pattern>
     </servlet-mapping>  
 
     <servlet-mapping>

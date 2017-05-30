@@ -25,7 +25,7 @@
     <br/>
     <br/>	
 	<h4>Input a valid Role ID below</hr>
-	<form action="UpdateEmployeeRoleServlet" method="POST">
+	<form action="EmployeeRoleServlet" method="POST">
 		<table align="left" cellpadding="8">
 			<tr>
 				<td>Role ID</td>

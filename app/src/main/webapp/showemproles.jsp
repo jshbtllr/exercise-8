@@ -46,7 +46,7 @@
                 <td style="text-align:center"><%=list.getRoleCode()%></td>
                 <td style="text-align:center"><%=list.getRoleName()%></td>
                 <td style="text-align:center">
-                    <form action="UpdateEmployeeRoleServlet" method="post">
+                    <form action="EmployeeRoleServlet" method="post">
                     	<input type="hidden" name="employeeId" value="<%=employeeId%>"/>
                         <input type="hidden" name="roleId" value="<%=list.getId()%>"/>
                         <input type="hidden" name="status" value="2"/>
