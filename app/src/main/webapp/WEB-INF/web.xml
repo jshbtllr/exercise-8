@@ -52,7 +52,13 @@
         <display-name>UpdateEmployeeServlet</display-name>
         <servlet-name>UpdateEmployeeServlet</servlet-name>
         <servlet-class>com.exercise8.app.UpdateEmployeeServlet</servlet-class>
-    </servlet>      
+    </servlet>   
+
+    <servlet>
+        <servlet-name>InitialServlet</servlet-name>
+        <servlet-class>com.exercise8.app.InitialServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>          
 
     <servlet-mapping>
     	<servlet-name>DeleteEmployeeServlet</servlet-name>

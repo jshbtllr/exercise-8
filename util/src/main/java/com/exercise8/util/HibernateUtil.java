@@ -7,7 +7,6 @@ import org.hibernate.cfg.AnnotationConfiguration;
 public class HibernateUtil {
 
 	private static SessionFactory sessionFactory;
-	//private static ServiceRegistry serviceRegistry;
 
 	private static SessionFactory buildSessionFactory() {
 		if(sessionFactory == null) {
