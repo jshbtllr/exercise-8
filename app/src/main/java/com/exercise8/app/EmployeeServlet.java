@@ -8,6 +8,7 @@ import com.exercise8.core.model.Name;
 import com.exercise8.core.service.EmployeeService;
 import com.exercise8.core.service.EmployeeRoleService;
 import com.exercise8.core.service.ContactInfoService;
+import com.exercise8.core.dao.EmployeeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -25,11 +26,12 @@ public class EmployeeServlet extends HttpServlet {
     											throws ServletException, IOException {
  		response.setContentType("text/html;charset=UTF-8");
 	    PrintWriter out = response.getWriter();
-	    //HttpSession session = request.getSession();
 	    String sortOption = null;
 	    String orderOption = null;
 	    Integer sort = null;
 	    Integer order = null;
+	    Set <Roles> allRoles = null;
+	    Set <ContactInfo> allContacts = null;
 	    List <Employee> allEmployee;
 	    String employed = null;
 
@@ -55,7 +57,6 @@ public class EmployeeServlet extends HttpServlet {
 			out.println("<select name=\"order\">");
 			out.println("<option value=\"ascending\"> Ascending </option>");
 			out.println("<option value=\"descending\"> Descending </option></select>");
-			out.println("<input type=\"hidden\" name=\"status\" value=\"sort\"/>");
 			out.println("<input type=\"submit\" value=\"sort\"/>");
 			out.println("</form></table>");
 
@@ -81,12 +82,13 @@ public class EmployeeServlet extends HttpServlet {
 
 			out.println("<div style=\"clear:both;\"></div><br/>");
 			out.println("<table border =\"1\" align=\"left\"><thead><tr>");
-			out.println("<th>Employee ID</th><th>Full Name</th><th>Address</th>");
+			out.println("<th>ID</th><th width=15%>Full Name</th><th width=15%>Address</th>");
 			out.println("<th>Birthdate</th><th>Grade</th><th>Employed</th>");
-			out.println("<th>Hire Date</th><th>Contact Info</th><th>Roles</th><th>Actions</th>");
+			out.println("<th>Hire Date</th><th width=20%>Contact Info</th><th width=15%>Roles</th><th>Actions</th>");
 			out.println("</tr></thead></tbody>");
 
 			allEmployee = EmployeeService.listEmployees(sort, order);
+
 			for(Employee employee : allEmployee) {
 				out.println("<tr><td align=\"center\">" + employee.getId() + "</td>");
 				out.println("<td align=\"center\">" + employee.getName().getTitle() + " " + employee.getName().getFirstName()
@@ -107,13 +109,37 @@ public class EmployeeServlet extends HttpServlet {
 					out.println("<td align=\"center\">" + employed + "</td>");
 					out.println("<td align=\"center\">N/A</td>");
 				}
-				out.println("<td align=\"center\">None</td>");
-				out.println("<td align=\"center\">None</td>");
-				out.println("<td align=\"center\"><form action=\"employee\" method=\"POST\">");
-				out.println("<input type=\"hidden\" name=\"employeeId\" value=\"" + employee.getId() + "\"/>");
-				out.println("<input type=\"hidden\" name=\"sort\" value=\"" + sortOption + "\"/>");
-				out.println("<input type=\"hidden\" name=\"order\" value=\"" + orderOption + "\"/>");
+
+				allContacts = EmployeeDAO.getEmployeeCollection(employee.getId()).getContactInfo();
+
+				out.println("<td align=\"left\">");
+				if(allContacts.isEmpty()) {
+					out.println("No Contact Info Available");
+				} else {
+					for(ContactInfo contacts : allContacts) {
+						out.println(contacts.getInfoType() + ": " + contacts.getInfoDetail() + "<br/>");
+					}
+				}
+				out.println("</td>");
+				out.println("<td align=\"center\">");
+				
+				allRoles = EmployeeDAO.getEmployeeCollection(employee.getId()).getRole();
+
+				if(allRoles.isEmpty()) {
+					out.println("No Roles Available");
+				} else {
+					for(Roles roles : allRoles) {
+						out.println(roles.getRoleName() + "<br/>");
+					}
+				}
+				out.println("</td>");
+				out.println("<td align=\"center\">");
+				out.println("<form action=\"employee\" method=\"POST\">");
+				out.println("<input type=\"hidden\" name=\"employeeId\" value=\"" + employee.getId() + "\"/>");			
 				out.println("<input type=\"submit\" value=\"Delete\"/>");
+				out.println("</form><form action=\"employee/update\" method=\"POST\">");
+				out.println("<input type=\"hidden\" name=\"employeeId\" value=\"" + employee.getId() + "\"/>");			
+				out.println("<input type=\"submit\" value=\"Update\"/>");
 				out.println("</form></td></tr>");
 			}
 
@@ -127,14 +153,29 @@ public class EmployeeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
     											throws ServletException, IOException {
+ 		PrintWriter out = response.getWriter();
  		response.setContentType("text/html;charset=UTF-8");
- 		String sortOption = request.getParameter("sort");
-		String orderOption = request.getParameter("order");
 		String input = null;
 	    Long employeeId = null;
 
-		input =request.getParameter("employeeId");
+		input = request.getParameter("employeeId");
 		employeeId = Long.parseLong(input);
 		EmployeeService.deleteEmployee(employeeId);  
+	    
+	    try { 
+	        out.println("<html>");
+	        out.println("<head>");      
+	        out.println("<title>Employee Deletion</title>");    
+	        out.println("</head>");
+	        out.println("<body>");
+	        out.println("<center>");
+            out.println("<h1>Employee Successfully deleted</h1><br/><br/>");
+            out.println("<a href=employee>Back to Employee Management</a>");
+	        out.println("</center>");
+        	out.println("</body>");
+        	out.println("</html>");
+    	} finally {       
+        	out.close();
+    	}		
  	}    
 }

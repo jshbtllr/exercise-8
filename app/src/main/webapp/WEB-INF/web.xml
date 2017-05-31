@@ -24,7 +24,22 @@
     <servlet>
         <servlet-name>manageroles</servlet-name>
         <servlet-class>com.exercise8.app.RoleServlet</servlet-class>
-    </servlet>        
+    </servlet>  
+
+    <servlet>
+        <servlet-name>updateemployee</servlet-name>
+        <jsp-file>/WEB-INF/updateemployee.jsp</jsp-file>
+    </servlet>      
+
+    <servlet>
+        <servlet-name>updateroles</servlet-name>
+        <servlet-class>com.exercise8.app.UpdateRoleServlet</servlet-class>
+    </servlet>     
+
+    <servlet>
+        <servlet-name>addroleservlet</servlet-name>
+        <servlet-class>com.exercise8.app.AddRoleServlet</servlet-class>
+    </servlet>         
 
     <servlet-mapping>
         <servlet-name>employeelist</servlet-name>
@@ -41,34 +56,25 @@
         <url-pattern>/roles</url-pattern>
     </servlet-mapping>    
 
+    <servlet-mapping>
+        <servlet-name>updateemployee</servlet-name>
+        <url-pattern>/employee/update</url-pattern>
+    </servlet-mapping>    
+    
+    <servlet-mapping>
+        <servlet-name>updateroles</servlet-name>
+        <url-pattern>/roles/update</url-pattern>
+    </servlet-mapping>     
+
+    <servlet-mapping>
+        <servlet-name>addroleservlet</servlet-name>
+        <url-pattern>/roles/add</url-pattern>
+    </servlet-mapping>  
+    
 
 
 
 
-
-    <servlet>
-    	<display-name>DeleteEmployeeServlet</display-name>
-    	<servlet-name>DeleteEmployeeServlet</servlet-name>
-    	<servlet-class>com.exercise8.app.DeleteEmployeeServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-    	<display-name>DeleteRoleServlet</display-name>
-    	<servlet-name>DeleteRoleServlet</servlet-name>
-    	<servlet-class>com.exercise8.app.DeleteRoleServlet</servlet-class>
-    </servlet>    
-
-    <servlet>
-    	<display-name>UpdateRoleServlet</display-name>
-    	<servlet-name>UpdateRoleServlet</servlet-name>
-    	<servlet-class>com.exercise8.app.UpdateRoleServlet</servlet-class>
-    </servlet>        
-
-    <servlet>
-    	<display-name>AddRoleServlet</display-name>
-    	<servlet-name>AddRoleServlet</servlet-name>
-    	<servlet-class>com.exercise8.app.AddRoleServlet</servlet-class>
-    </servlet>  
 
     <servlet>
         <display-name>EmployeeRoleServlet</display-name>
@@ -102,31 +108,7 @@
 
 
 
-
-
-
-
-
-
-    <servlet-mapping>
-    	<servlet-name>DeleteEmployeeServlet</servlet-name>
-    	<url-pattern>/DeleteEmployeeServlet</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-    	<servlet-name>DeleteRoleServlet</servlet-name>
-    	<url-pattern>/DeleteRoleServlet</url-pattern>
-    </servlet-mapping>    
-
-    <servlet-mapping>
-    	<servlet-name>UpdateRoleServlet</servlet-name>
-    	<url-pattern>/UpdateRoleServlet</url-pattern>
-    </servlet-mapping>       
-
-    <servlet-mapping>
-    	<servlet-name>AddRoleServlet</servlet-name>
-    	<url-pattern>/AddRoleServlet</url-pattern>
-    </servlet-mapping>    
+  
 
     <servlet-mapping>
         <servlet-name>EmployeeRoleServlet</servlet-name>

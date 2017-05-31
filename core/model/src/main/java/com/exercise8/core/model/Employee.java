@@ -84,9 +84,7 @@ public class Employee extends BaseEntity {
 		return this.contactInfo;
 	}
 
-	@ManyToMany(
-		cascade=CascadeType.ALL,
-		fetch=FetchType.LAZY)
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 		name="employeerole",
 		joinColumns=@JoinColumn(name="employee_id", referencedColumnName="id"),

@@ -10,6 +10,29 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddRoleServlet extends HttpServlet {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    											throws ServletException, IOException {
+ 		response.setContentType("text/html;charset=UTF-8");
+	    PrintWriter out = response.getWriter();
+	            
+	    try { 
+	        out.println("<html>");
+	        out.println("<head>");      
+	        out.println("<title>Add Role</title>");    
+	        out.println("</head>");
+	        out.println("<h3>Add Role</h3>");
+	        out.println("<body>");
+	        out.println("<form action=\"/roles/add\" method=\"POST\"/>");
+	        out.println("Role Code: <input type=\"text\" name=\"roleCode\" maxlength=255/><br/>");
+	        out.println("Role Name: <input type=\"text\" name=\"roleName\" maxlength=255/><br/>");
+	        out.println("<input type=\"submit\" value=\"Add Role\"/>");
+        	out.println("</body>");
+        	out.println("</html>");
+    	} finally {       
+        	out.close();
+    	}
+    }    	
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
     											throws ServletException, IOException {
  		response.setContentType("text/html;charset=UTF-8");
@@ -28,12 +51,12 @@ public class AddRoleServlet extends HttpServlet {
 	        out.println("<body>");
 	        out.println("<center>");
 	        if (success == 1) {
-	        	out.println("<h2>Role successfully added</h2><br/><br/>");
+	        	out.println("<h3>Role successfully added</h3>");
 	        } else {
-	        	out.println("<h2>Role Code already exists</h2><br/><h3>Role was not added</h3><br/><br/>");
+	        	out.println("<h3>Role Code already exists</h3><h4>Role was not added</h4>");
 	        }
 
-	        out.println("<a href=rolemanagement.jsp>Back to Role Management</a>");
+	        out.println("<a href=/roles>Back to Role Management</a>");
 	        out.println("</center>");	        
         	out.println("</body>");
         	out.println("</html>");
