@@ -6,6 +6,46 @@
     metadata-complete="false"
     version="3.1">
 
+    <context-param>
+        <param-name>org.eclipse.jetty.servlet.Default.dirAllowed</param-name>
+        <param-value>false</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>employeelist</servlet-name>
+        <servlet-class>com.exercise8.app.EmployeeServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>addemployee</servlet-name>
+        <servlet-class>com.exercise8.app.ManageEmployeeServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>manageroles</servlet-name>
+        <servlet-class>com.exercise8.app.RoleServlet</servlet-class>
+    </servlet>        
+
+    <servlet-mapping>
+        <servlet-name>employeelist</servlet-name>
+        <url-pattern>/employee</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>addemployee</servlet-name>
+        <url-pattern>/employee/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>manageroles</servlet-name>
+        <url-pattern>/roles</url-pattern>
+    </servlet-mapping>    
+
+
+
+
+
+
     <servlet>
     	<display-name>DeleteEmployeeServlet</display-name>
     	<servlet-name>DeleteEmployeeServlet</servlet-name>
@@ -59,6 +99,14 @@
         <servlet-class>com.exercise8.app.InitialServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
     </servlet>          
+
+
+
+
+
+
+
+
 
     <servlet-mapping>
     	<servlet-name>DeleteEmployeeServlet</servlet-name>
