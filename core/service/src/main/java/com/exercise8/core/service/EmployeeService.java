@@ -19,9 +19,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class EmployeeService {
-	public static Integer createEmployee(Employee employee) {
+	public static void createEmployee(Employee employee) {
 		EmployeeDAO.add(employee);
-		return 1;
 	}
 
 	public static List <Employee> listEmployees(Integer sortFunction, Integer orderFunction) {

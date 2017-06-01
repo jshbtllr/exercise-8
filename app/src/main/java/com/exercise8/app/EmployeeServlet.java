@@ -137,7 +137,7 @@ public class EmployeeServlet extends HttpServlet {
 				out.println("<form action=\"employee\" method=\"POST\">");
 				out.println("<input type=\"hidden\" name=\"employeeId\" value=\"" + employee.getId() + "\"/>");			
 				out.println("<input type=\"submit\" value=\"Delete\"/>");
-				out.println("</form><form action=\"employee/update\" method=\"POST\">");
+				out.println("</form><form action=\"employee/update\" method=\"GET\">");
 				out.println("<input type=\"hidden\" name=\"employeeId\" value=\"" + employee.getId() + "\"/>");			
 				out.println("<input type=\"submit\" value=\"Update\"/>");
 				out.println("</form></td></tr>");

@@ -6,6 +6,12 @@
     metadata-complete="false"
     version="3.1">
 
+    <servlet>
+        <servlet-name>InitialServlet</servlet-name>
+        <servlet-class>com.exercise8.app.InitialServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>          
+
     <context-param>
         <param-name>org.eclipse.jetty.servlet.Default.dirAllowed</param-name>
         <param-value>false</param-value>
@@ -18,7 +24,7 @@
 
     <servlet>
         <servlet-name>addemployee</servlet-name>
-        <servlet-class>com.exercise8.app.ManageEmployeeServlet</servlet-class>
+        <servlet-class>com.exercise8.app.AddEmployeeServlet</servlet-class>
     </servlet>
 
     <servlet>
@@ -28,7 +34,7 @@
 
     <servlet>
         <servlet-name>updateemployee</servlet-name>
-        <jsp-file>/WEB-INF/updateemployee.jsp</jsp-file>
+        <servlet-class>com.exercise8.app.UpdateEmployeeServlet</servlet-class>
     </servlet>      
 
     <servlet>
@@ -39,7 +45,12 @@
     <servlet>
         <servlet-name>addroleservlet</servlet-name>
         <servlet-class>com.exercise8.app.AddRoleServlet</servlet-class>
-    </servlet>         
+    </servlet>  
+
+    <servlet>
+        <servlet-name>addemployeeform</servlet-name>
+        <jsp-file>/addemployeeform.jsp</jsp-file>
+    </servlet>       
 
     <servlet-mapping>
         <servlet-name>employeelist</servlet-name>
@@ -48,7 +59,7 @@
 
     <servlet-mapping>
         <servlet-name>addemployee</servlet-name>
-        <url-pattern>/employee/add</url-pattern>
+        <url-pattern>/employee/add/result</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
@@ -70,63 +81,9 @@
         <servlet-name>addroleservlet</servlet-name>
         <url-pattern>/roles/add</url-pattern>
     </servlet-mapping>  
-    
-
-
-
-
-
-    <servlet>
-        <display-name>EmployeeRoleServlet</display-name>
-        <servlet-name>EmployeeRoleServlet</servlet-name>
-        <servlet-class>com.exercise8.app.EmployeeRoleServlet</servlet-class>
-    </servlet>   
-
-    <servlet>
-        <display-name>ContactInfoServlet</display-name>
-        <servlet-name>ContactInfoServlet</servlet-name>
-        <servlet-class>com.exercise8.app.ContactInfoServlet</servlet-class>
-    </servlet>                
-
-    <servlet>
-        <display-name>AddEmployeeServlet</display-name>
-        <servlet-name>AddEmployeeServlet</servlet-name>
-        <servlet-class>com.exercise8.app.AddEmployeeServlet</servlet-class>
-    </servlet>  
-
-    <servlet>
-        <display-name>UpdateEmployeeServlet</display-name>
-        <servlet-name>UpdateEmployeeServlet</servlet-name>
-        <servlet-class>com.exercise8.app.UpdateEmployeeServlet</servlet-class>
-    </servlet>   
-
-    <servlet>
-        <servlet-name>InitialServlet</servlet-name>
-        <servlet-class>com.exercise8.app.InitialServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>          
-
-
-
-  
 
     <servlet-mapping>
-        <servlet-name>EmployeeRoleServlet</servlet-name>
-        <url-pattern>/EmployeeRoleServlet</url-pattern>
-    </servlet-mapping>  
-
-    <servlet-mapping>
-        <servlet-name>ContactInfoServlet</servlet-name>
-        <url-pattern>/ContactInfoServlet</url-pattern>
-    </servlet-mapping>      
-
-    <servlet-mapping>
-        <servlet-name>AddEmployeeServlet</servlet-name>
-        <url-pattern>/AddEmployeeServlet</url-pattern>
-    </servlet-mapping>                  
-
-    <servlet-mapping>
-        <servlet-name>UpdateEmployeeServlet</servlet-name>
-        <url-pattern>/UpdateEmployeeServlet</url-pattern>
-    </servlet-mapping>      
+        <servlet-name>addemployeeform</servlet-name>
+        <url-pattern>/employee/add</url-pattern>
+    </servlet-mapping>
 </web-app>

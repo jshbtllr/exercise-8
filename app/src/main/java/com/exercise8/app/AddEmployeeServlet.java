@@ -5,6 +5,7 @@ import com.exercise8.core.model.Address;
 import com.exercise8.core.model.ContactInfo;
 import com.exercise8.core.model.Employee;
 import com.exercise8.core.model.Name;
+import com.exercise8.core.dao.RoleDAO;
 import com.exercise8.util.InputUtil;
 import com.exercise8.core.service.EmployeeService;
 import com.exercise8.core.service.EmployeeRoleService;
@@ -13,6 +14,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.Set;
+import java.util.List;
+import java.util.Arrays;
 import java.util.HashSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +23,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddEmployeeServlet extends HttpServlet {
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
     											throws ServletException, IOException {
  		response.setContentType("text/html;charset=UTF-8");
 	    PrintWriter out = response.getWriter();
-	    Integer success = new Integer(0);
-	    Boolean dateFlag = true;
+	    Integer success = new Integer(1);
+		Set <ContactInfo> contacts = new HashSet <ContactInfo>();
+		Set <Roles> role = new HashSet <Roles>();
+		ContactInfo info = null;
+		Address address = null;
+		Name name = null;
+		Employee employee = null;
 	    String title = request.getParameter("title");
 	    String firstName = request.getParameter("firstName");
 	    String middleName = request.getParameter("middleName");
@@ -36,89 +44,97 @@ public class AddEmployeeServlet extends HttpServlet {
 	    String city = request.getParameter("city");
 	    String country = request.getParameter("country");
 	    String zipcode = request.getParameter("zipcode");
+	    String employmentStatus = request.getParameter("employed");
+	    Boolean employed = Boolean.parseBoolean(request.getParameter("employed"));
+	    String birth = request.getParameter("birthdate");
+	    String hire = request.getParameter("hireDate");
+	    String grade = request.getParameter("grade");
 	    String infoType = request.getParameter("infoType");
-	    String infoDetail = request.getParameter("infoDetail");
+	    String infoDetail = request.getParameter("infoDetail");	    
 	    Float gradeWeightAverage = null;
 	    Date birthdate = null;
-	    String id = request.getParameter("roleId");
-	    Long roleId = Long.parseLong(id);
+	    Date hireDate = null;
+	    List <String> addedRole = Arrays.asList(request.getParameterValues("roles"));
 
 	    try {
-		    String grade = request.getParameter("grade");
-		    gradeWeightAverage = Float.parseFloat(grade);
-		    Boolean check = InputUtil.checkGrade(gradeWeightAverage);
-		    if (check == false) {
-		    	success = 3;
-		    } 
-		} catch (NumberFormatException npe) {
-			success = 3;
-		}
-
-	    String date = request.getParameter("birthdate");
-	    dateFlag = InputUtil.checkDate(date);
-	    if(dateFlag == true) {
-			birthdate = InputUtil.getDate(date);	    	
-	    } else {
-	    	success = 4;
-	    }
-	    
-	    String employ = request.getParameter("employed");
-	    Boolean employed = Boolean.parseBoolean(employ);
-	    Date hireDate = null;
-	    
-	    if(employed == true) {
-	    	date = request.getParameter("hiredate");
-	    } else if (employed == false) {
-	    	date = "31/12/9999";
-	    }
-
-	    dateFlag = InputUtil.checkDate(date);
-	    if(dateFlag == true) {
-	    	hireDate= InputUtil.getDate(date);
-	    } else {
+	    	gradeWeightAverage = Float.parseFloat(grade);
+	    } catch (NumberFormatException nfe) {
 	    	success = 2;
 	    }
 
-		Set <ContactInfo> contacts = new HashSet <ContactInfo>();
-		Set <Roles> role = new HashSet <Roles>();
+	    if(success != 2) {
+	    	if(!InputUtil.checkGrade(gradeWeightAverage)) {
+	    		success = 2;
+	    	}
+	    }
 
-		ContactInfo newInfo = new ContactInfo(infoType, infoDetail);
+	    if(employed) {
+	    	if(InputUtil.checkDate(hire)) {
+	    		hireDate = InputUtil.getDate(hire);
+	    	} else {
+	    		success = 3;
+	    	}
+	    } else {
+	    	hireDate = InputUtil.getDate("31/12/9999");
+	    }
 
-		Address address = new Address(streetNumber, barangay, city, country, zipcode);
-		Name name = new Name(firstName, lastName, middleName, suffix, title);
-		Employee employee = new Employee(name, address, birthdate, gradeWeightAverage, hireDate, employed, contacts, role);	    
-		role = EmployeeRoleService.addRoleSet(role, roleId);
-		contacts = ContactInfoService.addContactSet(contacts, employee, newInfo);
-		employee.setContactInfo(contacts);
-		employee.setRole(role);
-	            
+	    if(InputUtil.checkDate(birth)) {
+	    	birthdate = InputUtil.getDate(birth);
+	    } else {
+	    	success = 4;
+	    }
+
+	    info = new ContactInfo(infoType, infoDetail);
+	    info = ContactInfoService.checkInfo(info);
+
+	    if(info.getInfoType().equals(" ")) {
+	    	success = 5;
+	    }
+
+
+	    if(success == 1) {
+	    	name = new Name(firstName, lastName, middleName, suffix, title);
+	    	address = new Address(streetNumber, barangay, city, country, zipcode);
+	    	contacts.add(info);
+	    	for(String add : addedRole) {
+	    		Long id = Long.parseLong(add);
+	    		Roles in = RoleDAO.get(Roles.class, id);
+	    		role.add(in);
+	    	}
+	    	employee = new Employee(name, address, birthdate, gradeWeightAverage, hireDate, employed, 
+					contacts, role);
+
+
+	    }
+	    
 	    try { 
-	    	if (success == 0) {
-	    		success = EmployeeService.createEmployee(employee);
-	    	} 
-
-		    out.println("<html>");
-		    out.println("<head>");      
-		    out.println("<title>Add Employee</title>");    
-		    out.println("</head>");
-		    out.println("<body>");
-		    out.println("<center>");
-		    if (success == 1) {
-		     	out.println("<h2>Employee Added.</h2><br/><br/>");
-		    } else if(success == 2) {
-		     	out.println("<h2>Invalid Hire Date input.</h2><br/><br/>");
-		    } else if(success == 3) {
-		      	out.println("<h2>Invalid Grade input.</h2><br/><br/>");
-		    } else if (success == 4) {
-		      	out.println("<h2>Invalid Birthday input.</h2><br/><br/>");
-		    }
-
-		    out.println("<a href=employeemanagement.jsp>Back to Employee Management</a>");
-		    out.println("</center>");	        
-	        out.println("</body>");
-	        out.println("</html>");
+	        out.println("<html>");
+	        out.println("<head>");      
+	        out.println("<title>Add Employee</title>");    
+	        out.println("</head>");
+	        out.println("<body>");
+	        out.println("<center>");
+	        if(success == 1) {
+	        	EmployeeService.createEmployee(employee);
+            	out.println("<h3>Employee Successfully added</h3>");
+            } else {
+            	out.println("<h3>Employee not added</h3>");
+            	if(success == 2) {
+            		out.println("<h3>Invalid GWA input</h3>");
+            	} else if(success == 3) {
+            		out.println("<h3>Invalid Hire Date input</h3>");
+            	} else if(success == 4) {
+            		out.println("<h3>Invalid Birthday input</h3>");
+            	} else if (success == 5) {
+            		out.println("<h3>Invalid Contact Info input</h3>");
+            	}
+            }
+            out.println("<a href=/employee>Back to Employee Management</a>");
+	        out.println("</center>");
+        	out.println("</body>");
+        	out.println("</html>");
     	} finally {       
         	out.close();
-    	}
-    }
+    	}		
+ 	}
 }

@@ -1,10 +1,6 @@
-<%@page import="com.exercise8.core.dao.EmployeeDAO"%>
-<%@page import="com.exercise8.core.model.Employee"%>
-<%@page import="com.exercise8.core.model.Roles"%>
-<%@page import="com.exercise8.core.model.ContactInfo"%>
 <%@page import="com.exercise8.core.service.RoleService"%>
+<%@page import="com.exercise8.core.model.Roles"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.Set"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,16 +11,12 @@
 	<h3>Add New Employee</h3>
 	<br/>
     <div>
-    <a href=employeemanagement.jsp>Back to Employee <br/> Management</a></td>
+    <a href=/employee>Back to Employee <br/> Management</a></td>
     </div>
     <br/>
     <br/>	
-    <%
-    	Set <Roles> roles = (Set <Roles>) session.getAttribute("roleSet");
-    	Set <ContactInfo> contacts = (Set <ContactInfo>) session.getAttribute("contactSet");
-    %>
-	<form action="AddEmployeeServlet" method="POST">
-		<table align="left" cellpadding="8" onLoad="document.getElementById('hiredate').disabled = true;">
+	<form action="/employee/add/result" method="POST">
+		<table align="left" cellpadding="8">
 			<tr>
 				<td>Title</td>
 				<td>
@@ -127,13 +119,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center">
-                    Add Role ID: <input type="text" id="newrole" name="roleId" required>
+				<td colspan="2" align="left">
+                    Tick the Checkbox to add the role
                     <br/>
 				    <table border='1' align='center'>
 				        <thead>
 				            <tr>
-				                <th>Role ID</th>
 				                <th>Role Code</th>
 				                <th>Role Name</th>
 				            </tr>
@@ -144,9 +135,8 @@
 			            	for(Roles list : allRoles) { 
             			%>				        	
 			            	<tr>
-			                	<td style="text-align:center"><%=list.getId()%></td>
-			                	<td style="text-align:center"><%=list.getRoleCode()%></td>
-			                	<td style="text-align:center"><%=list.getRoleName()%></td>
+			                	<td align="left"><input type="checkbox" name="roles" value="<%=list.getId()%>"><%=list.getRoleCode()%></td>
+			                	<td align="center"><%=list.getRoleName()%></td>
 							</tr>
 						<%
 							}
