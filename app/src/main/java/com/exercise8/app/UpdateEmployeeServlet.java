@@ -13,6 +13,7 @@ import com.exercise8.core.dao.EmployeeDAO;
 import com.exercise8.core.dao.RoleDAO;
 import java.util.Date;
 import java.util.Set;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Arrays;
 import java.io.IOException;
@@ -32,8 +33,10 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    Employee employee = EmployeeDAO.getEmployeeCollection(employeeId);
 	    String checked = null;
 	    String hire = null;
+	    String bday = employee.getBirthday().toString().substring(0,10);
+	    bday = bday.substring(8,10) + "/" + bday.substring(5,7) + "/" +  bday.substring(0,4);
 
-	    
+
 
 
 	    out.println("<html><head><title>Update Employee</title></head><body>");
@@ -84,13 +87,14 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    			"\" required/></td></tr>");
 
 	    out.println("<tr><td>Birthdate</td><td><input type=\"text\" name=\"birthdate\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getBirthday().toString().substring(0,10) + "\" required/> (dd/mm/yyyy)</td></tr>");
+	    			"maxlength=\"255\" value=\"" + bday + "\" required/> (dd/mm/yyyy)</td></tr>");
 
 		out.println("<tr><td>Grade</td><td><input type=\"text\" name=\"gwa\"" + "maxlength=\"255\" value=\"" + 
 					employee.getGradeWeightAverage() + "\" required/></td></tr>");	    
 
 		if(employee.getEmployed() == true) {
 			hire = employee.getHireDate().toString().substring(0,10);
+			hire = hire.substring(8,10) + "/" + hire.substring(5,7) + "/" + hire.substring(0,4);
 		} else {
 			hire = "";
 		} 
@@ -111,8 +115,7 @@ public class UpdateEmployeeServlet extends HttpServlet {
 		List <Roles> allRoles = RoleService.listRoles(1,1);
 		Set <Roles> employeeRoles = EmployeeDAO.getEmployeeCollection(employeeId).getRole();
 		for(Roles list : allRoles) {
-			out.println("<tr><td align=\"left\"><input type=\"checkbox\" name=\"roles\" value=\"");
-			out.println(list.getId() + "\"");
+			out.println("<tr><td align=\"left\"><input type=\"checkbox\" name=\"roles\" value=" + list.getId() + " ");
 			for(Roles role : employeeRoles) {
 				if(list.getId().equals(role.getId())) {
 					out.println("checked");
@@ -161,8 +164,8 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    Long employeeId = Long.parseLong(id);
 
 	    Integer success = new Integer(1);
-		Set <ContactInfo> contacts = null;
-		Set <Roles> role = null;
+		Set <ContactInfo> contacts = new HashSet <ContactInfo>();
+		Set <Roles> role = new HashSet <Roles>();
 		Address address = null;
 		Name name = null;
 		Employee employee = null;
@@ -188,6 +191,8 @@ public class UpdateEmployeeServlet extends HttpServlet {
 		String infoType = request.getParameter("infoType");
 	    String infoDetail = request.getParameter("infoDetail");	   
 	    List <String> addedRole = Arrays.asList(request.getParameterValues("roles"));
+
+
 
 	    try {
 	    	gradeWeightAverage = Float.parseFloat(grade);

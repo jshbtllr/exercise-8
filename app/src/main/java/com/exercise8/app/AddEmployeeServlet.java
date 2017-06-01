@@ -113,7 +113,7 @@ public class AddEmployeeServlet extends HttpServlet {
 	        out.println("<body>");
 	        out.println("<center>");
 	        if(success == 1) {
-	        	EmployeeService.updateEmployee(employee);
+	        	EmployeeService.createEmployee(employee);
             	out.println("<h3>Employee Successfully updated</h3>");
             } else {
             	out.println("<h3>Employee not updated</h3>");
