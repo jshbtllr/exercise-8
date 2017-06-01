@@ -103,8 +103,6 @@ public class AddEmployeeServlet extends HttpServlet {
 	    	}
 	    	employee = new Employee(name, address, birthdate, gradeWeightAverage, hireDate, employed, 
 					contacts, role);
-
-
 	    }
 	    
 	    try { 
@@ -115,10 +113,10 @@ public class AddEmployeeServlet extends HttpServlet {
 	        out.println("<body>");
 	        out.println("<center>");
 	        if(success == 1) {
-	        	EmployeeService.createEmployee(employee);
-            	out.println("<h3>Employee Successfully added</h3>");
+	        	EmployeeService.updateEmployee(employee);
+            	out.println("<h3>Employee Successfully updated</h3>");
             } else {
-            	out.println("<h3>Employee not added</h3>");
+            	out.println("<h3>Employee not updated</h3>");
             	if(success == 2) {
             		out.println("<h3>Invalid GWA input</h3>");
             	} else if(success == 3) {

@@ -7,10 +7,14 @@ import com.exercise8.core.model.Employee;
 import com.exercise8.core.model.Name;
 import com.exercise8.util.InputUtil;
 import com.exercise8.core.service.EmployeeService;
+import com.exercise8.core.service.RoleService;
+import com.exercise8.core.service.ContactInfoService;
 import com.exercise8.core.dao.EmployeeDAO;
+import com.exercise8.core.dao.RoleDAO;
 import java.util.Date;
 import java.util.Set;
 import java.util.List;
+import java.util.Arrays;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -28,6 +32,8 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    Employee employee = EmployeeDAO.getEmployeeCollection(employeeId);
 	    String checked = null;
 	    String hire = null;
+
+	    
 
 
 	    out.println("<html><head><title>Update Employee</title></head><body>");
@@ -90,13 +96,55 @@ public class UpdateEmployeeServlet extends HttpServlet {
 		} 
 		
 		out.println("<tr><td>Employed?</td><td><input type=\"radio\" name=\"employed\"" +
-					"value =\"true\" required>Yes</input> <input type=\"radio\" value=\"false\" name=\"employed\"" +
-					">No</input></td></tr>");
+					"value =\"true\" onclick=\"document.getElementById('hiredate').disabled = false;\" required>Yes</input>");
+		out.println("<input type=\"radio\" value=\"false\" name=\"employed\" onclick=\"document.getElementById('hiredate').disabled = true;\">No</input></td></tr>");
 		
 
 
 		out.println("<tr><td>Hire Date</td><td><input type=\"text\" id=\"hiredate\" name=\"hireDate\"" +
 	    			"maxlength=\"255\" value=\"" + hire + "\"/> (dd/mm/yyyy)</td></tr>");
+
+		out.println("<tr><td colspan=\"2\" align=\"left\">Tick the Checkbox to update current role list<br/>");
+		out.println("<table border=\"1\" align=\"center\"><thead><tr><th>Role Code</th><th>Role Name</th></tr>");
+		out.println("</thead><tbody>");
+
+		List <Roles> allRoles = RoleService.listRoles(1,1);
+		Set <Roles> employeeRoles = EmployeeDAO.getEmployeeCollection(employeeId).getRole();
+		for(Roles list : allRoles) {
+			out.println("<tr><td align=\"left\"><input type=\"checkbox\" name=\"roles\" value=\"");
+			out.println(list.getId() + "\"");
+			for(Roles role : employeeRoles) {
+				if(list.getId().equals(role.getId())) {
+					out.println("checked");
+				}
+			}
+			out.println(">" + list.getRoleCode() + "</td>");
+			out.println("<td align=\"center\">" + list.getRoleName() + "</td></tr>");
+		}
+		out.println("</tbody></table></td></tr><br/>");
+
+		Set <ContactInfo> contacts = EmployeeDAO.getEmployeeCollection(employeeId).getContactInfo();
+
+		out.println("<tr><td colspan=\"2\" align=\"left\">Edit Current Contact Info</td></tr>");
+		for(ContactInfo list : contacts) {
+			out.println("<tr><td><select name=\"infoType\"><option value=\"email\"");
+			if(list.getInfoType().equals("email")){
+				out.println("selected");
+			}
+			out.println(">email</option>");
+			out.println("<option value=\"telephone\"");
+			if(list.getInfoType().equals("telephone")){
+				out.println("selected");
+			}
+			out.println(">telephone</option>");
+			out.println("<option value=\"cellphone\"");
+			if(list.getInfoType().equals("cellphone")){
+				out.println("selected");
+			}
+			out.println(">cellphone</option>");
+			out.println("</select></td><td> <input type=\"text\" name=\"infoDetail\"");
+			out.println("value=\"" + list.getInfoDetail() + "\" maxlength=\"255\"/></td></tr>");
+		}
 
 
 		out.println("<tr rowspan=\"2\" align=\"center\"><td colspan=\"2\" align=\"center\">");
@@ -105,7 +153,7 @@ public class UpdateEmployeeServlet extends HttpServlet {
 		out.println("</td></tr></table></form></body></html>");
 	}
 
-    /*protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
     											throws ServletException, IOException {
  		PrintWriter out = response.getWriter();
  		response.setContentType("text/html;charset=UTF-8");
@@ -118,6 +166,7 @@ public class UpdateEmployeeServlet extends HttpServlet {
 		Address address = null;
 		Name name = null;
 		Employee employee = null;
+		ContactInfo info = null;
 	    String title = request.getParameter("title");
 	    String firstName = request.getParameter("firstName");
 	    String middleName = request.getParameter("middleName");
@@ -129,16 +178,19 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    String country = request.getParameter("country");
 	    String zipcode = request.getParameter("zipcode");
 	    String employmentStatus = request.getParameter("employed");
-	    Boolean employed = Boolean.parseBoolean(request.getParameter(employed));
-	    String birth = request.getParameter(birthdate);
+	    Boolean employed = Boolean.parseBoolean(request.getParameter("employed"));
+	    String birth = request.getParameter("birthdate");
 	    String hire = request.getParameter("hireDate");
 	    String grade = request.getParameter("gwa");
 	    Float gradeWeightAverage = null;
 	    Date birthdate = null;
 	    Date hireDate = null;
+		String infoType = request.getParameter("infoType");
+	    String infoDetail = request.getParameter("infoDetail");	   
+	    List <String> addedRole = Arrays.asList(request.getParameterValues("roles"));
 
 	    try {
-	    	gradeWeightAverage = Long.parseLong(grade);
+	    	gradeWeightAverage = Float.parseFloat(grade);
 	    } catch (NumberFormatException nfe) {
 	    	success = 2;
 	    }
@@ -164,21 +216,58 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    } else {
 	    	success = 4;
 	    }
+
+	    info = new ContactInfo(infoType, infoDetail);
+	    if(!info.getInfoDetail().equals("")) {
+	    	info = ContactInfoService.checkInfo(info);
+		    if(info.getInfoType().equals(" ")) {
+		    	success = 5;
+		    }	    	
+	    }
+
+	    if(success == 1) {
+	    	name = new Name(firstName, lastName, middleName, suffix, title);
+	    	address = new Address(streetNumber, barangay, city, country, zipcode);
+	    	contacts.add(info);
+	    	for(String add : addedRole) {
+	    		Long roleId = Long.parseLong(add);
+	    		Roles in = RoleDAO.get(Roles.class, roleId);
+	    		role.add(in);
+	    	}
+	    	employee = new Employee(name, address, birthdate, gradeWeightAverage, hireDate, employed, 
+					contacts, role);
+
+	    	employee.setId(employeeId);
+	    }	    
 	    
 	    try { 
 	        out.println("<html>");
 	        out.println("<head>");      
-	        out.println("<title>Employee Update</title>");    
+	        out.println("<title>Add Employee</title>");    
 	        out.println("</head>");
 	        out.println("<body>");
 	        out.println("<center>");
-            out.println("<h1>Employee Successfully deleted</h1><br/><br/>");
-            out.println("<a href=employee>Back to Employee Management</a>");
+	        if(success == 1) {
+	        	EmployeeService.updateEmployee(employee);
+            	out.println("<h3>Employee Successfully added</h3>");
+            } else {
+            	out.println("<h3>Employee not added</h3>");
+            	if(success == 2) {
+            		out.println("<h3>Invalid GWA input</h3>");
+            	} else if(success == 3) {
+            		out.println("<h3>Invalid Hire Date input</h3>");
+            	} else if(success == 4) {
+            		out.println("<h3>Invalid Birthday input</h3>");
+            	} else if (success == 5) {
+            		out.println("<h3>Invalid Contact Info input</h3>");
+            	}
+            }
+            out.println("<a href=/employee>Back to Employee Management</a>");
 	        out.println("</center>");
         	out.println("</body>");
         	out.println("</html>");
     	} finally {       
         	out.close();
-    	}		
- 	} */  		
+    	}			
+ 	}  		
 }

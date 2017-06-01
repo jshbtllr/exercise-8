@@ -48,9 +48,8 @@ public class EmployeeService {
 		EmployeeDAO.delete(employee);
 	}
 
-	public static Integer updateEmployee(Employee employee) {
+	public static void updateEmployee(Employee employee) {
 		EmployeeDAO.update(employee);
-		return 1;
 	}
 }
 

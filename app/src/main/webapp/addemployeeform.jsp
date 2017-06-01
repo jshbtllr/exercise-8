@@ -160,7 +160,7 @@
 			<tr>
 				<td>Contact Info Details</td>
 				<td>
-					<input type="text" name="infoDetail" maxlength="255"/> (input information details)
+					<input type="text" name="infoDetail" maxlength="255" required/> (input information details)
 				</td>
 			</tr>			
 
