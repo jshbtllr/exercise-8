@@ -115,7 +115,7 @@
 			<tr>
 				<td>Hire Date</td>
 				<td>
-					<input type="text" name="hiredate" id="hiredate" required maxlength="10" disabled> (dd/mm/yyyy)
+					<input type="text" name="hireDate" id="hiredate" required maxlength="10" disabled> (dd/mm/yyyy)
 				</td>
 			</tr>
 			<tr>

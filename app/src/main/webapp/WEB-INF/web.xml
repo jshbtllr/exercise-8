@@ -50,7 +50,12 @@
     <servlet>
         <servlet-name>addemployeeform</servlet-name>
         <jsp-file>/addemployeeform.jsp</jsp-file>
-    </servlet>       
+    </servlet>  
+
+    <servlet>
+        <servlet-name>notallowed</servlet-name>
+        <jsp-file>/notallowed.jsp</jsp-file>
+    </servlet>           
 
     <servlet-mapping>
         <servlet-name>employeelist</servlet-name>
@@ -86,4 +91,9 @@
         <servlet-name>addemployeeform</servlet-name>
         <url-pattern>/employee/add</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>notallowed</servlet-name>
+        <url-pattern>/notallowed</url-pattern>
+    </servlet-mapping>    
 </web-app>

@@ -14,28 +14,38 @@ public class UpdateRoleServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
     											throws ServletException, IOException {
  		response.setContentType("text/html;charset=UTF-8");
+	    Boolean stopExecuting = false;
 	    PrintWriter out = response.getWriter();
 	    String input = request.getParameter("roleId");
-	    Long roleId = Long.parseLong(input);
-	    Roles role = RoleDAO.get(Roles.class, roleId);
-	            
-	    try { 
-	        out.println("<html>");
-	        out.println("<head>");      
-	        out.println("<title>Role Update</title>");    
-	        out.println("</head>");
-	        out.println("<h3>Role Update</h3>");
-	        out.println("<body>");
-	        out.println("<form action=\"/roles/update\" method=\"POST\"/>");
-	        out.println("Role Code: <input type=\"text\" name=\"roleCode\" value=\"" + role.getRoleCode() + "\" maxlength=255/><br/>");
-	        out.println("Role Name: <input type=\"text\" name=\"roleName\" value=\"" + role.getRoleName() + "\" maxlength=255/><br/>");
-	        out.println("<input type=\"hidden\" name=\"roleId\" value=\"" + role.getId() + "\"/>");
-	        out.println("<input type=\"submit\" value=\"Update Role\"/>");
-        	out.println("</body>");
-        	out.println("</html>");
-    	} finally {       
-        	out.close();
-    	}
+	    Long roleId = null;
+	    try {
+	    	roleId = Long.parseLong(input);
+	    } catch (NumberFormatException nfe) {
+	    	stopExecuting = true;
+	    	response.sendRedirect("/notallowed");
+	    }
+
+	    if(!stopExecuting) {
+		    Roles role = RoleDAO.get(Roles.class, roleId);
+		            
+		    try { 
+		        out.println("<html>");
+		        out.println("<head>");      
+		        out.println("<title>Role Update</title>");    
+		        out.println("</head>");
+		        out.println("<h3>Role Update</h3>");
+		        out.println("<body>");
+		        out.println("<form action=\"/roles/update\" method=\"POST\"/>");
+		        out.println("Role Code: <input type=\"text\" name=\"roleCode\" value=\"" + role.getRoleCode() + "\" maxlength=255/><br/>");
+		        out.println("Role Name: <input type=\"text\" name=\"roleName\" value=\"" + role.getRoleName() + "\" maxlength=255/><br/>");
+		        out.println("<input type=\"hidden\" name=\"roleId\" value=\"" + role.getId() + "\"/>");
+		        out.println("<input type=\"submit\" value=\"Update Role\"/>");
+	        	out.println("</body>");
+	        	out.println("</html>");
+	    	} finally {       
+	        	out.close();
+	    	}
+	    }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 

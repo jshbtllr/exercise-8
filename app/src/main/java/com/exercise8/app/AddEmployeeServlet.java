@@ -135,4 +135,9 @@ public class AddEmployeeServlet extends HttpServlet {
         	out.close();
     	}		
  	}
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    											throws ServletException, IOException {
+ 		response.sendRedirect("/notallowed");
+	   } 	
 }

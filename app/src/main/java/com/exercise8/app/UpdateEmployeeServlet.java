@@ -28,132 +28,157 @@ public class UpdateEmployeeServlet extends HttpServlet {
     											throws ServletException, IOException {
  		response.setContentType("text/html;charset=UTF-8");
 	    PrintWriter out = response.getWriter();
+	    Boolean stopExecuting = false;
 	    String id = request.getParameter("employeeId");
-	    Long employeeId = Long.parseLong(id);
-	    Employee employee = EmployeeDAO.getEmployeeCollection(employeeId);
-	    String checked = null;
-	    String hire = null;
-	    String bday = employee.getBirthday().toString().substring(0,10);
-	    bday = bday.substring(8,10) + "/" + bday.substring(5,7) + "/" +  bday.substring(0,4);
+	    Long employeeId = null;
+	    Employee employee = null;
+	    try {
+	    	employeeId = Long.parseLong(id);
+	    } catch (NumberFormatException nfe) {
+	    	stopExecuting = true;
+	    	response.sendRedirect("/notallowed");
+	    }
 
+	    if(!stopExecuting) {
+		    employee = EmployeeDAO.getEmployeeCollection(employeeId);
+		    String checked = null;
+		    String hire = null;
+		    String bday = employee.getBirthday().toString().substring(0,10);
+		    bday = bday.substring(8,10) + "/" + bday.substring(5,7) + "/" +  bday.substring(0,4);
 
+		    try {
+			    out.println("<html><head><title>Update Employee</title></head><body>");
+			    out.println("<h3> Update Employee " + employee.getName().getFirstName() + 
+			    			" " + employee.getName().getLastName() + "'s Details</h3><br/>");
+			    out.println("<a href=\"/employee\">Back to Employee<br/>Management</a><br/>");
+			    out.println("<form action=\"/employee/update\" method=\"POST\">");
+			    out.println("<table align=left cellpadding=8>");
 
+			    out.println("<tr><td>Title</td><td><input type=\"text\" name=\"title\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getName().getTitle() +
+			    			"\"/></td></tr>");
+			    
+			    out.println("<tr><td>First Name</td><td><input type=\"text\" name=\"firstName\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getName().getFirstName() +
+			    			"\" required/></td></tr>");
 
-	    out.println("<html><head><title>Update Employee</title></head><body>");
-	    out.println("<h3> Update Employee " + employee.getName().getFirstName() + 
-	    			" " + employee.getName().getLastName() + "'s Details</h3><br/>");
-	    out.println("<a href=\"/employee\">Back to Employee<br/>Management</a><br/>");
-	    out.println("<form action=\"/employee/update\" method=\"POST\">");
-	    out.println("<table align=left cellpadding=8>");
+			    out.println("<tr><td>Middle Name</td><td><input type=\"text\" name=\"middleName\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getName().getMiddleName() +
+			    			"\" required/></td></tr>");
 
-	    out.println("<tr><td>Title</td><td><input type=\"text\" name=\"title\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getName().getTitle() +
-	    			"\"/></td></tr>");
-	    
-	    out.println("<tr><td>First Name</td><td><input type=\"text\" name=\"firstName\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getName().getFirstName() +
-	    			"\" required/></td></tr>");
+			    out.println("<tr><td>Last Name</td><td><input type=\"text\" name=\"lastName\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getName().getLastName() +
+			    			"\" required/></td></tr>");
 
-	    out.println("<tr><td>Middle Name</td><td><input type=\"text\" name=\"middleName\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getName().getMiddleName() +
-	    			"\" required/></td></tr>");
+			    out.println("<tr><td>Suffix</td><td><input type=\"text\" name=\"suffix\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getName().getSuffix() +
+			    			"\"/></td></tr>");
 
-	    out.println("<tr><td>Last Name</td><td><input type=\"text\" name=\"lastName\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getName().getLastName() +
-	    			"\" required/></td></tr>");
+			    out.println("<tr><td>Street Number</td><td><input type=\"text\" name=\"streetNumber\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getAddress().getStreetNumber() +
+			    			"\" required/></td></tr>");
 
-	    out.println("<tr><td>Suffix</td><td><input type=\"text\" name=\"suffix\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getName().getSuffix() +
-	    			"\"/></td></tr>");
+			    out.println("<tr><td>Barangay</td><td><input type=\"text\" name=\"barangay\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getAddress().getBarangay() +
+			    			"\" required/></td></tr>");
 
-	    out.println("<tr><td>Street Number</td><td><input type=\"text\" name=\"streetNumber\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getAddress().getStreetNumber() +
-	    			"\" required/></td></tr>");
+			    out.println("<tr><td>City</td><td><input type=\"text\" name=\"city\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getAddress().getCity() +
+			    			"\" required/></td></tr>");
 
-	    out.println("<tr><td>Barangay</td><td><input type=\"text\" name=\"barangay\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getAddress().getBarangay() +
-	    			"\" required/></td></tr>");
+			    out.println("<tr><td>Country</td><td><input type=\"text\" name=\"country\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getAddress().getCountry() +
+			    			"\" required/></td></tr>");
 
-	    out.println("<tr><td>City</td><td><input type=\"text\" name=\"city\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getAddress().getCity() +
-	    			"\" required/></td></tr>");
+			    out.println("<tr><td>Zipcode</td><td><input type=\"text\" name=\"zipcode\"" +
+			    			"maxlength=\"255\" value=\"" + employee.getAddress().getZipcode() +
+			    			"\" required/></td></tr>");
 
-	    out.println("<tr><td>Country</td><td><input type=\"text\" name=\"country\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getAddress().getCountry() +
-	    			"\" required/></td></tr>");
+			    out.println("<tr><td>Birthdate</td><td><input type=\"text\" name=\"birthdate\"" +
+			    			"maxlength=\"10\" value=\"" + bday + "\" required/> (dd/mm/yyyy)</td></tr>");
 
-	    out.println("<tr><td>Zipcode</td><td><input type=\"text\" name=\"zipcode\"" +
-	    			"maxlength=\"255\" value=\"" + employee.getAddress().getZipcode() +
-	    			"\" required/></td></tr>");
+				out.println("<tr><td>Grade</td><td><input type=\"text\" name=\"gwa\"" + "maxlength=\"6\" value=\"" + 
+							employee.getGradeWeightAverage() + "\" required/></td></tr>");	    
 
-	    out.println("<tr><td>Birthdate</td><td><input type=\"text\" name=\"birthdate\"" +
-	    			"maxlength=\"255\" value=\"" + bday + "\" required/> (dd/mm/yyyy)</td></tr>");
-
-		out.println("<tr><td>Grade</td><td><input type=\"text\" name=\"gwa\"" + "maxlength=\"255\" value=\"" + 
-					employee.getGradeWeightAverage() + "\" required/></td></tr>");	    
-
-		if(employee.getEmployed() == true) {
-			hire = employee.getHireDate().toString().substring(0,10);
-			hire = hire.substring(8,10) + "/" + hire.substring(5,7) + "/" + hire.substring(0,4);
-		} else {
-			hire = "";
-		} 
-		
-		out.println("<tr><td>Employed?</td><td><input type=\"radio\" name=\"employed\"" +
-					"value =\"true\" onclick=\"document.getElementById('hiredate').disabled = false;\" required>Yes</input>");
-		out.println("<input type=\"radio\" value=\"false\" name=\"employed\" onclick=\"document.getElementById('hiredate').disabled = true;\">No</input></td></tr>");
-		
-
-
-		out.println("<tr><td>Hire Date</td><td><input type=\"text\" id=\"hiredate\" name=\"hireDate\"" +
-	    			"maxlength=\"255\" value=\"" + hire + "\"/> (dd/mm/yyyy)</td></tr>");
-
-		out.println("<tr><td colspan=\"2\" align=\"left\">Tick the Checkbox to update current role list<br/>");
-		out.println("<table border=\"1\" align=\"center\"><thead><tr><th>Role Code</th><th>Role Name</th></tr>");
-		out.println("</thead><tbody>");
-
-		List <Roles> allRoles = RoleService.listRoles(1,1);
-		Set <Roles> employeeRoles = EmployeeDAO.getEmployeeCollection(employeeId).getRole();
-		for(Roles list : allRoles) {
-			out.println("<tr><td align=\"left\"><input type=\"checkbox\" name=\"roles\" value=" + list.getId() + " ");
-			for(Roles role : employeeRoles) {
-				if(list.getId().equals(role.getId())) {
+				if(employee.getEmployed() == true) {
+					hire = employee.getHireDate().toString().substring(0,10);
+					hire = hire.substring(8,10) + "/" + hire.substring(5,7) + "/" + hire.substring(0,4);
+				} else {
+					hire = "";
+				} 
+				
+				out.println("<tr><td>Employed?</td><td><input type=\"radio\" name=\"employed\"" +
+							"value =\"true\" onclick=\"document.getElementById('hiredate').disabled = false;\" required");
+				if(employee.getEmployed() == true) {
 					out.println("checked");
 				}
+				out.println(">Yes</input>");
+				out.println("<input type=\"radio\" value=\"false\" name=\"employed\" onclick=\"document.getElementById('hiredate').disabled = true;\"");
+				if(employee.getEmployed() == false) {
+					out.println("checked");
+				}
+				out.println(">No</input></td></tr>");
+			
+				out.println("<tr><td>Hire Date</td><td><input type=\"text\" id=\"hiredate\" name=\"hireDate\"" +
+			    			"maxlength=\"10\" value=\"" + hire + "\"/> (dd/mm/yyyy)</td></tr>");
+
+				out.println("<tr><td colspan=\"2\" align=\"left\">Tick the Checkbox to update current role list<br/>");
+				out.println("<table border=\"1\" align=\"center\"><thead><tr><th>Role Code</th><th>Role Name</th></tr>");
+				out.println("</thead><tbody>");
+
+				List <Roles> allRoles = RoleService.listRoles(1,1);
+				Set <Roles> employeeRoles = EmployeeDAO.getEmployeeCollection(employeeId).getRole();
+				for(Roles list : allRoles) {
+					out.println("<tr><td align=\"left\"><input type=\"checkbox\" name=\"roles\" value=" + list.getId() + " ");
+					for(Roles role : employeeRoles) {
+						if(list.getId().equals(role.getId())) {
+							out.println("checked");
+						}
+					}
+					out.println(">" + list.getRoleCode() + "</td>");
+					out.println("<td align=\"center\">" + list.getRoleName() + "</td></tr>");
+				}
+				out.println("</tbody></table></td></tr><br/>");
+
+				Set <ContactInfo> contacts = EmployeeDAO.getEmployeeCollection(employeeId).getContactInfo();
+
+				out.println("<tr><td colspan=\"2\" align=\"left\">Edit Current Contact Info</td></tr>");
+				if(!contacts.isEmpty()) {
+					for(ContactInfo list : contacts) {
+						out.println("<tr><td><select name=\"infoType\"><option value=\"email\"");
+						if(list.getInfoType().equals("email")){
+							out.println("selected");
+						}
+						out.println(">email</option>");
+						out.println("<option value=\"telephone\"");
+						if(list.getInfoType().equals("telephone")){
+							out.println("selected");
+						}
+						out.println(">telephone</option>");
+						out.println("<option value=\"cellphone\"");
+						if(list.getInfoType().equals("cellphone")){
+							out.println("selected");
+						}
+						out.println(">cellphone</option>");
+						out.println("</select></td><td> <input type=\"text\" name=\"infoDetail\"");
+						out.println("value=\"" + list.getInfoDetail() + "\" maxlength=\"255\"/></td></tr>");
+					}
+				} else {
+					out.println("<tr><td><select name=\"infoType\"><option value=\"email\">email</option>");
+					out.println("<option value=\"telephone\">telephone</option>");
+					out.println("<option value=\"cellphone\">cellphone</option>");
+					out.println("</select></td><td> <input type=\"text\" name=\"infoDetail\" maxlength=\"255\"/></td></tr>");
+				}
+
+
+				out.println("<tr rowspan=\"2\" align=\"center\"><td colspan=\"2\" align=\"center\">");
+				out.println("<input type=\"hidden\" name=\"employeeId\" value=\"" + employeeId + "\"/>");
+				out.println("<input type=\"submit\" value=\"Update\"/>");
+				out.println("</td></tr></table></form></body></html>");
+			} finally {
+				out.close();
 			}
-			out.println(">" + list.getRoleCode() + "</td>");
-			out.println("<td align=\"center\">" + list.getRoleName() + "</td></tr>");
 		}
-		out.println("</tbody></table></td></tr><br/>");
-
-		Set <ContactInfo> contacts = EmployeeDAO.getEmployeeCollection(employeeId).getContactInfo();
-
-		out.println("<tr><td colspan=\"2\" align=\"left\">Edit Current Contact Info</td></tr>");
-		for(ContactInfo list : contacts) {
-			out.println("<tr><td><select name=\"infoType\"><option value=\"email\"");
-			if(list.getInfoType().equals("email")){
-				out.println("selected");
-			}
-			out.println(">email</option>");
-			out.println("<option value=\"telephone\"");
-			if(list.getInfoType().equals("telephone")){
-				out.println("selected");
-			}
-			out.println(">telephone</option>");
-			out.println("<option value=\"cellphone\"");
-			if(list.getInfoType().equals("cellphone")){
-				out.println("selected");
-			}
-			out.println(">cellphone</option>");
-			out.println("</select></td><td> <input type=\"text\" name=\"infoDetail\"");
-			out.println("value=\"" + list.getInfoDetail() + "\" maxlength=\"255\"/></td></tr>");
-		}
-
-
-		out.println("<tr rowspan=\"2\" align=\"center\"><td colspan=\"2\" align=\"center\">");
-		out.println("<input type=\"hidden\" name=\"employeeId\" value=\"" + employeeId + "\"/>");
-		out.println("<input type=\"submit\" value=\"Update\"/>");
-		out.println("</td></tr></table></form></body></html>");
 	}
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
@@ -192,8 +217,6 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    String infoDetail = request.getParameter("infoDetail");	   
 	    List <String> addedRole = Arrays.asList(request.getParameterValues("roles"));
 
-
-
 	    try {
 	    	gradeWeightAverage = Float.parseFloat(grade);
 	    } catch (NumberFormatException nfe) {
@@ -227,13 +250,14 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    	info = ContactInfoService.checkInfo(info);
 		    if(info.getInfoType().equals(" ")) {
 		    	success = 5;
-		    }	    	
+		    } else {
+		 	   contacts.add(info);    	
+			}
 	    }
 
 	    if(success == 1) {
 	    	name = new Name(firstName, lastName, middleName, suffix, title);
 	    	address = new Address(streetNumber, barangay, city, country, zipcode);
-	    	contacts.add(info);
 	    	for(String add : addedRole) {
 	    		Long roleId = Long.parseLong(add);
 	    		Roles in = RoleDAO.get(Roles.class, roleId);
@@ -248,15 +272,15 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    try { 
 	        out.println("<html>");
 	        out.println("<head>");      
-	        out.println("<title>Add Employee</title>");    
+	        out.println("<title>Update Employee</title>");    
 	        out.println("</head>");
 	        out.println("<body>");
 	        out.println("<center>");
 	        if(success == 1) {
 	        	EmployeeService.updateEmployee(employee);
-            	out.println("<h3>Employee Successfully added</h3>");
+            	out.println("<h3>Employee Successfully updated</h3>");
             } else {
-            	out.println("<h3>Employee not added</h3>");
+            	out.println("<h3>Employee not updated</h3>");
             	if(success == 2) {
             		out.println("<h3>Invalid GWA input</h3>");
             	} else if(success == 3) {

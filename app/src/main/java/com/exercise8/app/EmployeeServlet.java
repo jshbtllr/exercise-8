@@ -35,7 +35,6 @@ public class EmployeeServlet extends HttpServlet {
 	    List <Employee> allEmployee;
 	    String employed = null;
 
-
 	    try { 
 		    out.println("<html>");
 		    out.println("<head>");      
