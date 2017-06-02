@@ -69,6 +69,8 @@ public class EmployeeServlet extends HttpServlet {
 				sort = 2;
 			} else if(sortOption.equals("hiredate")) {
 				sort = 3;
+			} else {
+				sort = 4;
 			}
 
 			if(orderOption == null) {
@@ -77,6 +79,8 @@ public class EmployeeServlet extends HttpServlet {
 				order = 1;
 			} else if(orderOption.equals("descending")) {
 				order = 2;
+			} else {
+				order = 0;
 			}
 
 			out.println("<div style=\"clear:both;\"></div><br/>");

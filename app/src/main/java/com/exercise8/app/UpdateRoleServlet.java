@@ -18,6 +18,7 @@ public class UpdateRoleServlet extends HttpServlet {
 	    PrintWriter out = response.getWriter();
 	    String input = request.getParameter("roleId");
 	    Long roleId = null;
+	    Roles role = null;
 	    try {
 	    	roleId = Long.parseLong(input);
 	    } catch (NumberFormatException nfe) {
@@ -25,9 +26,14 @@ public class UpdateRoleServlet extends HttpServlet {
 	    	response.sendRedirect("/notallowed");
 	    }
 
-	    if(!stopExecuting) {
-		    Roles role = RoleDAO.get(Roles.class, roleId);
-		            
+	   	try {
+	    	role = RoleDAO.get(Roles.class, roleId);
+	    } catch (IndexOutOfBoundsException iobe) {
+	    	stopExecuting = true;
+	    	response.sendRedirect("/notfound");
+	    }	 
+
+	    if(!stopExecuting) {	            
 		    try { 
 		        out.println("<html>");
 		        out.println("<head>");      

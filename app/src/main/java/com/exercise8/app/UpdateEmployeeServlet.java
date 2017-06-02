@@ -39,8 +39,14 @@ public class UpdateEmployeeServlet extends HttpServlet {
 	    	response.sendRedirect("/notallowed");
 	    }
 
+	    try {
+	    	employee = EmployeeDAO.getEmployeeCollection(employeeId);
+	    } catch (IndexOutOfBoundsException iobe) {
+	    	stopExecuting = true;
+	    	response.sendRedirect("/notfound");
+	    }	    
+
 	    if(!stopExecuting) {
-		    employee = EmployeeDAO.getEmployeeCollection(employeeId);
 		    String checked = null;
 		    String hire = null;
 		    String bday = employee.getBirthday().toString().substring(0,10);

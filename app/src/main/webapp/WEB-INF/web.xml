@@ -55,7 +55,12 @@
     <servlet>
         <servlet-name>notallowed</servlet-name>
         <jsp-file>/notallowed.jsp</jsp-file>
-    </servlet>           
+    </servlet>          
+
+    <servlet>
+        <servlet-name>notfound</servlet-name>
+        <jsp-file>/notfound.jsp</jsp-file>
+    </servlet>               
 
     <servlet-mapping>
         <servlet-name>employeelist</servlet-name>
@@ -96,4 +101,9 @@
         <servlet-name>notallowed</servlet-name>
         <url-pattern>/notallowed</url-pattern>
     </servlet-mapping>    
+
+    <servlet-mapping>
+        <servlet-name>notfound</servlet-name>
+        <url-pattern>/notfound</url-pattern>
+    </servlet-mapping>        
 </web-app>
